@@ -23,7 +23,7 @@
         "monolog/monolog": "1.x",
         "symfony/monolog-bridge": "2.*",
         "symfony/twig-bridge": "2.*",
-        "swiftmailer/swiftmailer": "4.*",
+        "swiftmailer/swiftmailer": "5.*",
         "symfony/security": "2.*",
         "symfony/form": "2.*",
         "symfony/translation": "2.*",

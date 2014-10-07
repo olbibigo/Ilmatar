@@ -707,7 +707,7 @@ class JqGrid extends EntityRepository
     {
         //Ex: sidx=field1 desc, field2  sord=asc
         if (!empty($sidx) && !empty($sord)) {
-            return ' ORDER BY '. $sidx . ' ' . $sord;
+            return sprintf(' ORDER BY %s', \SQLite3::escapeString($sidx . ' ' . $sord));
         }
         return '';
     }
@@ -728,7 +728,7 @@ class JqGrid extends EntityRepository
             }
         }
         //removes first ' AND  ' before return
-        return 'WHERE ' . substr($result, 5);
+        return sprintf('WHERE %s', substr($result, 5));
     }
 
     protected static function getRawQuerySubWhereClause($field, $oper, $data, &$query)
@@ -751,7 +751,7 @@ class JqGrid extends EntityRepository
             " AND %s %s '%s'",
             $field,
             self::$operators[$oper],
-            trim($data)
+            \SQLite3::escapeString($data)
         );
     }
     
