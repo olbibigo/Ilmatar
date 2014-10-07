@@ -2,6 +2,7 @@
 
 namespace Entities;
 
+use Doctrine\ORM\Mapping as ORM;
 use Ilmatar\BaseEntity;
 use Ilmatar\Exception\TranslatedException;
 use Symfony\Component\Validator\ExecutionContextInterface;
