@@ -1,0 +1,42 @@
+Entities\InternalMail:
+  type: entity
+  repositoryClass: Repositories\InternalMail
+  table: internal_mail
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    subject:
+      type: string(256)
+      notnull: true
+      notblank: true
+    body:
+      type: text
+      notnull: true
+      notblank: true
+    read_at:
+      type: datetime
+      nullable: true
+    created_at:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+  manyToOne:
+    from:
+      targetEntity: Entities\User
+      name: from_id
+      referencedColumnName: id
+      joinColumn:
+        nullable: false
+    to:
+      targetEntity: Entities\User
+      name: to_id
+      referencedColumnName: id
+      joinColumn:
+        nullable: false
+  lifecycleCallbacks:
+    prePersist: [ assertValidInternalMail ]
+    preUpdate: [ assertValidInternalMail ]

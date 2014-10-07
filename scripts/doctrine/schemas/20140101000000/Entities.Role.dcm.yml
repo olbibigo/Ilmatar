@@ -1,0 +1,68 @@
+Entities\Role:
+  type: entity
+  repositoryClass: Repositories\Role
+  table: role
+  gedmo:
+    soft_deleteable:
+      field_name: deleted_at
+      time_aware: false
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    code:
+      type: string(32)
+      notnull: true
+      notblank: true
+      unique: true
+    description:
+      type: string
+      length: 1024
+      nullable: true
+    created_at:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updated_at:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+    deleted_at:
+      type: datetime
+      nullable: true
+    created_by:
+      type: string
+      gedmo:
+        blameable:
+          on: create
+    updated_by:
+      type: string
+      gedmo:
+        blameable:
+          on: update
+  lifecycleCallbacks:
+    prePersist: [ assertValidRole ]
+    preUpdate: [ assertValidRole ]
+  oneToMany:
+    users:
+      targetEntity: Entities\User
+      mappedBy: role
+    permissions:
+      targetEntity: Entities\Permission
+      mappedBy: role
+  manyToMany:
+    kpis:
+      targetEntity: Entities\Kpi
+      inversedBy: roles
+      joinTable:
+        name: roles_kpis
+        joinColumns:
+          role_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          kpi_id:
+            referencedColumnName: id

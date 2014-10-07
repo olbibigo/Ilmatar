@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+<?php
+set_time_limit(1800);
+
+$configFiles = array(
+    'env.xml',
+    'common.xml',
+    'console.xml',
+);
+
+$_SERVER['HTTP_HOST'] = 'console';
+
+$app = require __DIR__ . '/common/config.php';
+$app = require $app['app.root'] . '/app/common/config_test.php';
+
+$app = require $app['app.root'] . '/app/common/app.php';
+$app = require $app['app.root'] . '/app/common/console.php';
+
+$app['console']->run();

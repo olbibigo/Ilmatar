@@ -1,0 +1,20 @@
+{% spaceless %}
+    <a href="#" onclick="previewDocument('{{ path('mydocument-user-download' , {"documentId": entityId, "version": latestVersion}) }}?{{ constant('\\Project\\Controller\\MyDocumentController::PREVIEW_PARAM') }}=1','{{ mimeType }}')" style="margin-right:10px">
+        <i class="fa fa-eye fa-2x" title="{{ app.translator.trans('Preview this document') }}"></i>
+    </a>
+    {%if nbVersions == 1 %}
+        <a href="#" onclick="ajaxDownload('{{ path('mydocument-user-download' , {"documentId": entityId, "version": latestVersion}) }}')" style="margin-right:10px">
+            <i class="fa fa-download fa-2x" title="{{ app.translator.trans('Download this document') }}"></i>
+        </a>
+        <a href="#" onclick="$('#documentId').val({{ entityId }});$('#deleteConfirmContainer').dialog('open');">
+            <i class="fa fa-times fa-2x" title="{{ app.translator.trans('Delete this document') }}"></i>
+        </a>
+    {% else %}
+        <a href="#" onclick="$('#documentId').val({{ entityId }});genVersion('{{ versions }}');$('#downloadFormContainer').dialog('open');" style="margin-right:10px">
+            <i class="fa fa-download fa-2x" title="{{ app.translator.trans('Download this document') }}"></i>
+        </a>
+        <a href="#" onclick="$('#documentId').val({{ entityId }});$('#deleteContainer').dialog('open')">
+            <i class="fa fa-times fa-2x" title="{{ app.translator.trans('Delete this document') }}"></i>
+        </a>
+    {% endif %}
+{% endspaceless %}

@@ -1,0 +1,46 @@
+{% spaceless %}
+<div id="previewContainer" title="{{ app.translator.trans('Preview a document') }}" class="hide">
+    <embed id="previewEmbed" src="" type="text/html" width="750" height="550">
+</div>
+
+<div id="uploadFormContainer" title="{{ app.translator.trans('Add files') }}" class="hide">
+    <p id="validateTips"></p>
+
+    {{ form_start(uploadForm, {'attr': {'id': 'uploadForm'}}) }}
+        <input type="hidden" id="fileId" name={{ uploadName }} value='{{ fileId }}'/>
+        {% for child in uploadForm.children %}
+            {% if 'path' in child.vars.name %}
+                <div id="{{ child.vars.name }}">
+                    {% if child.vars.errors|length > 0 %}
+                        <div class="ui-state-error">{{ form_errors(child) }}</div>
+                    {% endif %}
+                    <div class="field" style="display: inline">{{ form_label(child) }}{{ form_widget(child, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+                    {% if child.vars.name != 'path0' %}
+                        <button type="button" class="buttonRemove" data-target="{{ child.vars.name }}">{{ app.translator.trans('Delete this document') }}</button>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+        <button type="button" style="margin-top:20px" id="addFileButton">{{ app.translator.trans('Add a file') }}</button>
+    {{ form_end(uploadForm) }}
+    <div id="progressdiv"></div>
+</div>
+
+<div id="downloadFormContainer" title="{{ app.translator.trans('Download a document') }}" class="hide">
+    <form action="{{ path('mydocument-user-download', {'id' : user.getId()}) }}" method="post" id="downloadForm">
+        <label for="version">{{ app.translator.trans('Select the version you want to download') }}</label>&nbsp;:<select
+                id="version" name="version"></select>
+    </form>
+</div>
+
+<div id="deleteContainer" title="{{ app.translator.trans('Delete a document') }}" class="hide">
+    <p>{{ app.translator.trans('Select delete mode to apply.') }}</p>
+</div>
+
+<div id="deleteConfirmContainer" title="{{ app.translator.trans('Delete a document') }}" class="hide">
+    <p>{{ app.translator.trans('Can you confirm this action?') }}</p>
+</div>
+
+<input type="hidden" name="documentId" id="documentId" value="-666">
+
+{% endspaceless %}

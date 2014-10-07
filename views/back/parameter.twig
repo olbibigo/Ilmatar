@@ -1,0 +1,20 @@
+{% spaceless %}
+{% set icon = 'fa-pencil' %}
+{% extends "back/subLayout.twig" %}
+
+{% block subBody %}
+    {{ form_start(parameterForm) }}
+            <div class="field">{{ form_label(parameterForm.code) }}{{ form_widget(parameterForm.code, { 'attr': {'class': 'ui-widget-content  ui-state-disabled'} }) }}</div>
+            <div class="field">{{ form_label(parameterForm.type) }}{{ form_widget(parameterForm.type, { 'attr': {'class': 'ui-widget-content  ui-state-disabled'} }) }}</div>
+            {% if parameterForm.category.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(parameterForm.category) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(parameterForm.category) }}{{ form_widget(parameterForm.category, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            
+            {% if parameterForm.value.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(parameterForm.value) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(parameterForm.value) }}{{ form_widget(parameterForm.value, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+    {{ form_end(parameterForm) }}
+{% endblock %}
+{% endspaceless %}

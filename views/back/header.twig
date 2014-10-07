@@ -1,0 +1,84 @@
+{% spaceless %}
+<div id="topBanner" class="ui-widget ui-widget-header">
+    {% if user is defined %}
+        <div id="companyLogo">
+            <a href="{{ path(constant('\\Project\\Controller\\DashboardController::PRIVATE_DEFAULT_HOMEPAGE')) }}">
+                <img alt="logo" src="/img/logo.png" title="{{appName}}" />
+            </a>
+        </div>
+        <div id="userInfo">
+            {% if nbInternalMails > 0 %}
+                <a href="{{ path('mailbox-display') }}" class="mailboxWarning" title="{{ app.translator.trans('You have %nb_msg% unread message(s). Click to open your mailbox.', {'%nb_msg%' : nbInternalMails}) }}">
+                    <i class="fa fa-envelope fa-2x"></i>
+                    <span class="gem" id="nbUnreadMails">{{ nbInternalMails }}</span>
+                </a>
+            {% else %}
+                <a href="{{ path('mailbox-display') }}" class="mailboxWarning" title="{{ app.translator.trans('Click to open your mailbox.') }}">
+                    <i class="fa fa-envelope fa-2x"></i>
+                </a>
+            {% endif %}
+            <span id="logged" title="{{ app.translator.trans('Click to set your user preferences') }}">
+                <i class="fa fa-user fa-2x"></i>
+                <span class="username">{{ user.getFullname() }} ({{ app.translator.trans(user.getRole().getDescription())}})</span>
+            </span>
+            <a href="{{ path(app.translator.trans(app.translator.trans('admin', [], "routes") ~ '_logout')) }}" id="logout">
+                <i class="fa fa-power-off fa-2x" title="{{ app.translator.trans('logout') }}"></i>
+                <!-- <img src="/img/btnLogout.png"  id="logout" />-->
+            </a>
+        </div>
+        <div id="menus" class="ui-widget-content">
+            {{ knp_menu_render('main', {'currentAsLink': true, 'compressed':true}) }}
+        </div>
+    {% else %}
+        <div id="companyLogo">
+            <img alt="logo" src="/img/logo.png" title="{{appName}}" />
+        </div>
+        <div id="userInfo">
+            <label for="LangSelectorHP">{{ app.translator.trans('Language') }}</label>:
+            <select id="LangSelectorHP" class="ui-widget-content">
+                {% for code, name in availableLanguages %}
+                    <option value="{{ code }}" {%if app['locale'] == code %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div id="menus" class="ui-widget-content"></div>
+    {% endif %}
+</div>
+{% if user is defined %}
+    <div id="userSettingForm" title="{{ app.translator.trans('User settings') }}" class="hide">
+        {% if user is defined %}
+            <div class="field">
+                <i class="fa fa-edit"></i>&nbsp;<a href="{{ path('user-edit', {'userId' : user.getId()}) }}">{{ app.translator.trans('Edit my profile') }}</a>
+            </div>
+            <div class="field">
+                <i class="fa fa-file-text-o"></i>&nbsp;<a href="{{ path('mydocument-display') }}">{{ app.translator.trans('Manage my documents') }}</a>
+            </div>
+        {% endif %}
+        {% if landingPage|slice(-8, 8) == '-display' %}
+            <div class="field">
+                <i class="fa fa-heart"></i>&nbsp;<span id="landingPage" data-landingPage="{{ landingPage }}">{{ app.translator.trans('Set current page as your landing page') }}</span>
+            </div>
+        {% endif %}
+        <div class="field">
+            <i class="fa fa-flag"></i>&nbsp;<span>{{ app.translator.trans("Change your language") }}</span>&nbsp;
+            <select id="langSelector" class="ui-widget-content">
+                {% for code, name in availableLanguages %}
+                    <option value="{{ code }}" {%if app['locale'] == code %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="field">
+            <i class="fa fa-magic"></i>&nbsp;<span>{{ app.translator.trans("Change your theme") }}</span>&nbsp;
+            <select id="themeSelector" class="ui-widget-content">
+                {% for code, name in availableUiThemes %}
+                    <option value="{{ code }}" {%if uiTheme == name %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+        <script>
+            "use strict";
+            var editUserSettingsUrl = "{{ path(app.translator.trans(app.translator.trans('user-edit-settings', [], "routes"))) }}";
+        </script>
+{% endif %}
+{% endspaceless %}

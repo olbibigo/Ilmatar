@@ -1,0 +1,51 @@
+Entities\Parameter:
+  type: entity
+  repositoryClass: Repositories\Parameter
+  table: global_parameter
+  indexes:
+    label_idx:
+      columns: [ code ]
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    code:
+      type: string
+      length: 32
+      unique: true
+    type:
+      type: integer #0: boolean; 1: string; 2: integer; 3: float
+    category:
+      type: string
+      length: 256
+    value:
+      type: string
+      length: 1024
+      nullable: true
+    created_at:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updated_at:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+    created_by:
+      type: string
+      gedmo:
+        blameable:
+          on: create
+    updated_by:
+      type: string
+      gedmo:
+        blameable:
+          on: update
+    is_readonly:
+      type: boolean
+  lifecycleCallbacks:
+    prePersist: [ assertValidParameter ]
+    preUpdate: [ assertValidParameter ]

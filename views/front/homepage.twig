@@ -1,0 +1,18 @@
+{% spaceless %}
+{% extends "front/subLayout.twig" %}
+
+{% block body %}
+    {{ render(path('internal_header', {'username': username|default('anonymous')})) }}
+    <p id="php">{{ app.translator.trans('Hello %name%!', {'%name%' : username|default('anonymous')}) }}</p>
+    <p id="push">{{ render(path('editorial-push', {'editCode': 'TEST_PUSH'})) }}</p>
+    <p id="js"></p>
+    <script>
+        "use strict";
+        var username     = "{{ username|default('anonymous') }}";
+        require(["jquery"], function(Jq) {
+            Jq('#js').text(_("Hello %name%!", { "%name%": username}));
+        });
+    </script>
+    {{ render(path('internal_footer', {'username': username|default('anonymous')})) }}
+{% endblock %}
+{% endspaceless %}

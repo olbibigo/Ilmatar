@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://b.ilmatar.localhost/" />
+<title>maintenance</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">maintenance</td></tr>
+</thead><tbody>
+<!--Must start from FRA site (default config)-->
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_username</td>
+	<td>${adminUsername}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_password</td>
+	<td>${adminPassword}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=buttonLogin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Maintenance</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=ui-id-2</td>
+	<td>Phpinfo</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=ui-id-3</td>
+	<td>Contrôle de configuration</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=ui-id-4</td>
+	<td>Routes déclarées</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=ui-id-5</td>
+	<td>OP Cache</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=ui-id-6</td>
+	<td>Utilisateurs actifs</td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>id=tabs-1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h1.p</td>
+	<td>PHP Version 5.*</td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>relative=parent</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ui-id-3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=ui-tabs-1</td>
+	<td>*OK*</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ui-id-4</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeXpathCount</td>
+	<td>//div[@id='ui-tabs-2']/table/tbody/tr</td>
+	<td>nbRoutes</td>
+</tr>
+<tr>
+	<td>echo</td>
+	<td>${nbRoutes} declared routes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>${nbRoutes} &gt;= 100</td>
+	<td>true</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ui-id-5</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>id=tabs-4</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//p[@class='inactive']</td>
+	<td>En mode debug, l'OP cache est désactivé.</td>
+</tr>
+<tr>
+	<td>selectFrame</td>
+	<td>relative=parent</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ui-id-6</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='ui-tabs-3']/table/tbody/tr[2]/td</td>
+	<td>${adminUsername}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[@id='logout']/i</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

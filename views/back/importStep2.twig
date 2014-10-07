@@ -1,0 +1,63 @@
+{% spaceless %}
+{% set icon = 'fa-pencil' %}
+{% extends "back/subLayout.twig" %}
+
+{% block subBody %}
+    <div class="ui-widget">
+        {% for child in fatalerror %}
+        <div class="ui-state-error ui-corner-all" style="margin-top: 5px; padding: 0 .7em;">
+            <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>{{child}}</p>
+        </div>   
+        {% endfor %}
+        {% for child in simpleerror %}
+        <div class="ui-state-highlight ui-corner-all" style="margin-top: 5px; padding: 0 .7em;">
+            <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>{{child}}</p>
+        </div>   
+        {% endfor %}
+        {% if fatalerror|length > 0 %}
+        <div class="ui-state-error ui-corner-all" style="margin-top: 5px; padding: 0 .7em;">
+            <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span><strong>{{fatalerror|length}}</strong> {{errormsg['fatal']}}</p>
+        </div>   
+        {% elseif simpleerror|length > 0 %}
+        <div class="ui-state-highlight ui-corner-all" style="margin-top: 5px; padding: 0 .7em;">
+            <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span><strong>{{simpleerror|length}}</strong> {{errormsg['normal']}}</p>
+        </div>   
+        {% else %}
+        <div class="ui-state-active ui-corner-all" style="margin-top: 5px; padding: 0 .7em;">
+            <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>{{errormsg['no']}}</p>
+        </div>  
+        {% endif %}
+    </div> 
+    <div class="field"><label>{{form["entity"]["label"]}}</label><div>{{form["entity"]["value"]}}</div></div>
+            
+    <div class="field"><label>{{form["mode"]["label"]}}</label><div>{{form["mode"]["value"]}}</div></div>
+
+    <div class="field"><label>{{form["requiredField"]["label"]}}</label><div>
+        {% include "back/importfieldtab.twig" %}
+    </div></div>
+    
+    {{ form_start(importForm) }}
+        {% if importForm.path.vars.errors|length > 0 %}
+            <div class="ui-state-error">{{ form_errors(importForm.path) }}</div>
+        {% endif %}
+        <div class="field" style="display:inline;">{{ form_label(importForm.path) }}{{ form_widget(importForm.path, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+        <div class="field">
+            <label for="buttonRetry">&nbsp;</label>
+            <button id="buttonRetry" name="buttonRetry" type="submit">{{ buttonlabel["retry"] }}</button>
+        </div>
+    {{ form_end(importForm) }}
+    <form style="display:inline;" action="{{ app.url_generator.generate("import-step1") }}" method="post">
+        <button id="buttonPrevious" name="buttonPrevious" type="submit">{{ buttonlabel["previous"] }}</button>
+    </form>
+    {% if fatalerror|length == 0 %}
+        <form style="display:inline;" action="{{ finalaction}}" method="post">
+            <button id="buttonImport" name="buttonImport" type="submit">{{ buttonlabel["import"] }}</button>
+        </form>
+    {% endif %}
+{% endblock %}
+
+{% block footBody %}
+   {{ parent() }}
+    <script src="/assets/import-step2.js"></script>
+{% endblock %}
+{% endspaceless %}

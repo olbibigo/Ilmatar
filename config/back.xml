@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <app>back</app>
+
+    <https>false</https>
+    <app.ip.banish.isActive>true</app.ip.banish.isActive>
+    <app.max.login.attempt>3</app.max.login.attempt>
+    <!-- in mn -->
+    <app.ip.banish.delay>3</app.ip.banish.delay>
+    <webservices>
+        <https>false</https>
+        <isActive>true</isActive>
+        <credentials>
+            <credential>
+                <public.key>KQtEmHerKheNXTkR6JzmsrBC</public.key>
+                <shared.key>bvx5AvhDbChCjMFt5T4Yp6Yg</shared.key>
+                <!-- Use regex separated by ; -->
+                <allowed.ips>.*</allowed.ips>
+                <allowed.domains>.*</allowed.domains>            
+            </credential>
+            <!-- must be kept even if empty -->
+            <credential></credential>
+        </credentials>
+    </webservices>
+    <app.controllers type="collection">
+        <value>Common</value>
+        <value>PublicBack</value>
+        <value>Webservice</value>
+        <value>Maintenance</value>
+        <value>Dashboard</value>
+        <value>Document</value>
+        <value>Parameter</value>
+        <value>Role</value>
+        <value>User</value>
+        <value>MailTemplate</value>
+        <value>Editorial</value>
+        <value>Job</value>
+        <value>Query</value>
+        <value>Log</value>
+        <value>Audit</value>
+        <value>Translation</value>
+        <value>FlashMessage</value>
+        <value>IntraMail</value>
+        <value>Import</value>
+        <value>Functionality</value>
+        <value>News</value>
+        <value>MyDocument</value>
+        <value>Demo</value>
+        <!-- Add other controllers here -->
+    </app.controllers>
+</configuration>

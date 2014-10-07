@@ -1,0 +1,67 @@
+Entities\Query:
+  type: entity
+  repositoryClass: Repositories\Query
+  table: query
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      length: 256
+    comment:
+      type: string
+      length: 1024
+      nullable: true
+    query:
+      type: text
+      nullable: true
+    visibility:
+      type: integer #0 : all; 1: only creator
+    is_visible:
+      type: boolean
+    is_exported:
+      type: boolean
+    mail_list:
+      type: string
+      length: 2048
+      nullable: true
+    mail_repeats:
+      type: integer #0 : daily; 1: weekly; 2: monthly
+    mail_offset:
+      type: integer
+    export_format:
+      type: integer #0 : pdf; 1: xml; 2: csv; 3: xsl
+    created_at:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updated_at:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+    created_by:
+      type: string
+      gedmo:
+        blameable:
+          on: create
+    updated_by:
+      type: string
+      gedmo:
+        blameable:
+          on: update
+  lifecycleCallbacks:
+    prePersist: [ assertValidQuery ]
+    preUpdate: [ assertValidQuery ]
+  manyToOne:
+    creator:
+      targetEntity: Entities\User
+      inversedBy: queries
+      name: creator_id
+      referencedColumnName: id
+      joinColumn:
+        nullable: false

@@ -1,0 +1,51 @@
+{% spaceless %}
+{% set icon = 'fa-dashboard' %}
+{% extends "back/subLayout.twig" %}
+
+{% block subBody %}
+    <p class="marginBottom">
+        {{ app.translator.trans('Hello <b>%name%</b>!', {'%name%' : user.getFirstname()})|raw }}
+        {% if user.getLoginAt() is null %}
+            {{ app.translator.trans("Welcome for the first time on your private space!") }}
+        {% else %}
+            {{ app.translator.trans('Your latest login was <b>%date%</b>.', {'%date%' : user.getLoginAt().format(constant('\\Ilmatar\\JqGrid::DATETIME_DISPLAY_FORMAT'))})|raw }}
+        {% endif %}
+    </p>
+    {% if latestNews is not null %}
+        <div class="ui-widget-content ui-corner-all info">
+            <p style="text-align:center;font-weight:bold">{{ app.translator.trans('Latest news') }}</p>
+            <p><b>{{ latestNews.subject }}</b>&nbsp;<i>{{ app.translator.trans('by %created_by% at %created_at%', {'%created_by%': latestNews.created_by, '%created_at%': latestNews.created_at.format(constant('\\Ilmatar\\JqGrid::DATETIME_DISPLAY_FORMAT'))}) }}</i></p>
+            <p>{{ latestNews.body|raw }}</p>
+            <p style="text-align:right;"><a href="{{ app.url_generator.generate("news-display") }}">&lt;{{ app.translator.trans("Access more news") }}&gt;</a></p>
+        </div>
+    {% endif %}
+    {% if charts is defined %}
+        {% for chart in charts %}
+            <div class="chartSuperContainer">
+                <div id="{{ chart.code }}" data-label="{{ chart.label }}" class="chartContainer">
+                    <img src="/common/img/spinner.gif" alt="{{ app.translator.trans('Loading...') }}" style="margin-top:150px"/>
+                </div>
+                <div style="clear:left;">
+                    <button data-code="{{ chart.code }}" class="buttonReset">{{ app.translator.trans('Reset Zoom') }}</button>
+                    <span style="margin-left:30px">{{ app.translator.trans('View') }}</span>: <select class="ui-widget-content selectView" data-code="{{ chart.code }}" class="selectView">
+                        {% for key, value in availableKpiViews %}
+                            <option value="{{ key }}">{{ app.translator.trans(value) }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <script>
+        "use strict";
+        var chartReadUrl = "{{ path('chart-load', {kpiCode : constant('\\Ilmatar\\JqGrid::PARAM_URL_ROW_ID') }) }}?{{ constant('\\Repositories\\KpiValue::PARAM_VIEW_NAME') }}=" ;
+        var kpiCodeUrlParam = "{{ constant('\\Ilmatar\\JqGrid::PARAM_URL_ROW_ID') }}";
+    </script>
+{% endblock %}
+
+{% block footBody %}
+   {{ parent() }}
+   <script src="/assets/dashboard.js"></script>
+{% endblock %}
+{% endspaceless %}

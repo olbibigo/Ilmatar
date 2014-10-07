@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://b.ilmatar.localhost/" />
+<title>CRUD dedicated form</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">CRUD dedicated form</td></tr>
+</thead><tbody>
+<!--Must start from FRA site (default config)-->
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_username</td>
+	<td>${adminUsername}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_password</td>
+	<td>${adminPassword}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=buttonLogin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Utilisateurs</td>
+	<td></td>
+</tr>
+<!--Add-->
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='body']/div/div[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>window.document.domain</td>
+	<td>host</td>
+</tr>
+<tr>
+	<td>assertLocation</td>
+	<td>http://${host}/admin/utilisateur/editer</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Ilmatar r1 - Edition d'un utilisateur</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=back</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>window.document.domain</td>
+	<td>host</td>
+</tr>
+<tr>
+	<td>assertLocation</td>
+	<td>http://${host}/admin/utilisateur/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='body']/div/div[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_firstname</td>
+	<td>aaa</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_lastname</td>
+	<td>aaa</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=logintab</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=user_username</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_username</td>
+	<td>javascript{&quot;x&quot; + Math.floor(Math.random()*15000) + &quot;@castelis.com&quot;}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_password_first</td>
+	<td>aaaaaaaa</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_password_second</td>
+	<td>aaaaaaaa</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.noty_message</td>
+	<td>L'opération demandée s'est déroulée avec succès (id: *).</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.noty_message</td>
+	<td></td>
+</tr>
+<!--Delete-->
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>mouseOver</td>
+	<td>//table[@id='list']/tbody/tr[last()]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='list']/tbody/tr[last()]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.button.btnAction</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=delete</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=button-0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.noty_message</td>
+	<td>L'opération demandée s'est déroulée avec succès (id: *).</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.noty_message</td>
+	<td></td>
+</tr>
+<!--Editer-->
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.button.btnAction</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.noty_message</td>
+	<td>Une ligne doit être sélectionnée pour pouvoir accomplir cette opération</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.noty_message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>mouseOver</td>
+	<td>//tr[@id='1']/td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//tr[@id='1']/td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.button.btnAction</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>window.document.domain</td>
+	<td>host</td>
+</tr>
+<tr>
+	<td>assertLocation</td>
+	<td>http://${host}/admin/utilisateur/editer/1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Ilmatar r1 - Edition d'un utilisateur</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertVisible</td>
+	<td>id=save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertNotVisible</td>
+	<td>id=upload</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=documenttab</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertNotVisible</td>
+	<td>id=save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertVisible</td>
+	<td>id=upload</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=persontab</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_firstname</td>
+	<td>x</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_lastname</td>
+	<td>y</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=logintab</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>&quot;x&quot; + Math.floor(Math.random()*15000) + &quot;@castelis.com&quot;</td>
+	<td>username</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_username</td>
+	<td>${username}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_password_first</td>
+	<td>xxxxxxxx</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_password_second</td>
+	<td>xxxxxxxx</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=settingstab</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_settings_LOCALE</td>
+	<td>en</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_settings_LANDING_PAGE</td>
+	<td>mydocument-display</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.noty_message</td>
+	<td>L'opération demandée s'est déroulée avec succès (id: 1).</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.noty_message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=td[title=&quot;${username}&quot;]</td>
+	<td>${username}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[@id='logout']/i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_username</td>
+	<td>${username}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_password</td>
+	<td>xxxxxxxx</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=buttonLogin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertLocation</td>
+	<td>http://${host}/admin/my-document/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Ilmatar r1 - My documents</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=span.username</td>
+	<td>x. y (Technical administrator)</td>
+</tr>
+<!--Reset-->
+<tr>
+	<td>open</td>
+	<td>/admin/user/edit/1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=logintab</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_username</td>
+	<td>${adminUsername}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_password_first</td>
+	<td>${adminPassword}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_password_second</td>
+	<td>${adminPassword}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=settingstab</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_settings_LOCALE</td>
+	<td>fr</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_settings_LANDING_PAGE</td>
+	<td>dashboard-display</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[@id='logout']/i</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

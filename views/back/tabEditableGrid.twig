@@ -1,0 +1,17 @@
+{% spaceless %}
+{% include '/common/flashbags.twig' %}
+{% include "back/buttons.twig" %}
+<div style="clear:both;margin-top:50px;width:99%;"><table class="grid" id="list{{ gridKey }}"></div></table>
+<script>
+    "use strict";
+    var jqGridColNames{{ gridKey }}         = {{ jqGridColNames|json_encode()|raw }};
+    var jqGridColModels{{ gridKey }}        = {{ jqGridColModels|json_encode()|raw }};
+    var jqGridDataReadUrl{{ gridKey }}      = "{{ jqGridDataReadUrl }}";
+    var jqGridName{{ gridKey }}             = "{{ jqGridName }}";
+    var jqGridRowIdUrlParam{{ gridKey }}    = "{{ jqGridRowIdUrlParam }}";        
+    var jqGridDataWriteUrl{{ gridKey }}     = "{{ jqGridDataWriteUrl }}";
+    var csrfToken{{ gridKey }}              = "{{ csrfToken }}";
+    //Simple grid (no pagination) defined into sublayout.js
+    loadEditableGrid('{{ gridKey }}');
+</script>
+{% endspaceless %}

@@ -1,0 +1,20 @@
+{% spaceless %}
+{% extends "back/subLayout.twig" %}
+
+{% block subBody %}   
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Phpinfo</a></li>
+            <li><a href="{{ path('maintenance-check-config') }}">{{ app.translator.trans("Config Check") }}</a></li>
+            <li><a href="{{ path('maintenance-routes') }}">{{ app.translator.trans("Routes") }}</a></li>
+            <li><a href="#tabs-4">OP Cache</a></li>
+            <li><a href="{{ path('maintenance-active-users') }}">{{ app.translator.trans("Active users") }}</a></li>
+        </ul>
+
+        <iframe id="tabs-1" src="{{ path('maintenance-phpinfo') }}" style="width:98%;height:600px;overflow-x: hidden;border-width:0px"></iframe>
+
+        <iframe id="tabs-4" src="{{ path('maintenance-opcache') }}" style="width:98%;height:600px;overflow-x: hidden;border-width:0px"></iframe>
+
+    </div>
+{% endblock %}
+{% endspaceless %}

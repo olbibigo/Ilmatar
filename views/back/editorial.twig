@@ -1,0 +1,25 @@
+{% spaceless %}
+{% set icon = 'fa-pencil' %}
+{% extends "back/subLayout.twig" %}
+
+{% block subBody %}
+    {{ form_start(editForm) }}
+            <div class="field">{{ form_label(editForm.code) }}{{ form_widget(editForm.code, { 'attr': {'class': 'ui-widget-content  ui-state-disabled'} }) }}</div>
+
+            {% if editForm.is_active.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(editForm.is_active) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(editForm.is_active) }}{{ form_widget(editForm.is_active, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            
+            {% if editForm.description.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(editForm.description) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(editForm.description) }}{{ form_widget(editForm.description, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            
+            {% if editForm.body.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(editForm.body) }}</div>
+            {% endif %}
+            <div class="field tinymce">{{ form_label(editForm.body) }}<p>{{ form_widget(editForm.body, {'attr': {'class': 'editmce'}}) }}</p></div>
+    {{ form_end(editForm) }}
+{% endblock %}
+{% endspaceless %}

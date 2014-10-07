@@ -1,0 +1,30 @@
+Entities\Permission:
+  type: entity
+  repositoryClass: Repositories\Permission
+  table: permission
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    type:
+      type: integer #0 : read permission; 1: read-write permission
+  lifecycleCallbacks:
+    prePersist: [ assertValidPermission ]
+    preUpdate: [ assertValidPermission ]
+  manyToOne:
+    role:
+      targetEntity: Entities\Role
+      inversedBy: permissions
+      name: role_id
+      referencedColumnName: id
+      joinColumn:
+        nullable: false
+    functionality:
+      targetEntity: Entities\Functionality
+      inversedBy: permissions
+      name: functionality_id
+      referencedColumnName: id
+      joinColumn:
+        nullable: false

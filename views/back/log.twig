@@ -1,0 +1,33 @@
+{% spaceless %}
+{% extends "back/subLayout.twig" %}
+
+{% block subBody %}
+    {% if priorities is defined %}
+        <div class="field">
+            <label for="priorityFilter">{{ app.translator.trans('Message priority filter') }}</label>: 
+            <select name="priorityFilter" id="priorityFilter">
+                <option value="ALL" selected="selected">ALL</option>
+                {% for idx, priority in priorities %}
+                    <option value='{{ priority }}'>{{ priority }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    {% endif %}    
+    <div id="tabs">
+        <ul>
+            {% for logName,token in logPaths %}
+                <li><a href="{{ path('log-load', {token : token}) }}?filter=">{{ logName }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block footBody %}
+   {{ parent() }}
+   <script>
+        var jqGridRowIdUrlParam = "{{ jqGridRowIdUrlParam }}"; 
+        var rootDownloadUrl     = "{{ rootDownloadUrl }}";
+    </script>
+    <script src="/assets/log.js"></script>
+{% endblock %}
+{% endspaceless %}

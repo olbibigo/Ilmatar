@@ -1,0 +1,18 @@
+Entities\IpBlacklist:
+  type: entity
+  repositoryClass: Repositories\IpBlacklist
+  table: ip_blacklist
+  indexes:
+    label_ip:
+      columns: [ ip ]
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    ip:
+      type: string(39)
+      unique: true
+    until_date:
+      type: datetime

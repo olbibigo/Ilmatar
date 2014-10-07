@@ -1,0 +1,139 @@
+{% spaceless %}
+{% set icon = 'fa-pencil' %}
+{% extends "back/subLayout.twig" %}
+
+{% block footHeader %}
+   {{ parent() }}
+    <link href="/common/assets/strength/strength.css" media="screen" rel="stylesheet"/>
+    <link href="/common/assets/jqgrid/css/ui.jqgrid.css" media="screen" rel="stylesheet"/>
+{% endblock %} 
+
+{% block subBody %}
+    {{ form_start(userForm) }}
+    <div id="tabs">
+        <ul>
+        <li><a id="persontab" href="#tabs-1">{{ app.translator.trans('Person') }}</a></li>
+        <li><a id="logintab" href="#tabs-2">{{ app.translator.trans('Login') }}</a></li>
+        <li><a id="contacttab" href="#tabs-3">{{ app.translator.trans('Contact') }}</a></li>
+        <li><a id="settingstab" href="#tabs-4">{{ app.translator.trans('Settings') }}</a></li>
+        {% if isAllowedToModifyDocument %}
+        <li><a id="documenttab" href="{{ path('mydocument-user-display', {'userId' : userId}) }}">{{ app.translator.trans('Documents') }}</a></li>
+        {% endif %}
+        </ul>
+        <div id="tabs-1">
+            {% if userForm.gender.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(userForm.gender) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(userForm.gender) }}{{ form_widget(userForm.gender) }}</div>
+            
+            {% if userForm.firstname.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(userForm.firstname) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(userForm.firstname) }}{{ form_widget(userForm.firstname, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            
+            {% if userForm.lastname.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(userForm.lastname) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(userForm.lastname) }}{{ form_widget(userForm.lastname, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            
+            {% if userForm.role.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(userForm.role) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(userForm.role) }}{{ form_widget(userForm.role, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            
+            {% if userForm.comment.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(userForm.comment) }}</div>
+            {% endif %}
+            <div class="field tinymce">{{ form_label(userForm.comment) }}<p>{{ form_widget(userForm.comment, {'attr': {'class': 'editmce'}}) }}</p></div>  
+        </div>
+        <div id="tabs-2">
+            {% if userForm.is_active.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(userForm.is_active) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(userForm.is_active) }}{{ form_widget(userForm.is_active, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            
+            {% if userForm.username.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(userForm.username) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(userForm.username) }}{{ form_widget(userForm.username, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+
+            {% if userForm.password.first.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(userForm.password.first) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(userForm.password.first) }}{{ form_widget(userForm.password.first, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            
+            <div class="field">{{ form_label(userForm.password.second) }}{{ form_widget(userForm.password.second, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            
+            <div class="field">
+                <label>{{ app.translator.trans('Login at') }}</label>
+                <span>{{ loginAt }}</span>
+            </div>
+            <div class="field">
+                <label>{{ app.translator.trans('Active at') }}</label>
+                <span>{{ activeAt }}</span>
+            </div>
+            <div class="field">
+                <label>{{ app.translator.trans('Logout at') }}</label>
+                <span>{{ logoutAt }}</span>
+            </div>
+        </div>
+        <div id="tabs-3">
+            {% if userForm.street.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(userForm.street) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(userForm.street) }}{{ form_widget(userForm.street, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            
+            {% if userForm.zipcode.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(userForm.zipcode) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(userForm.zipcode) }}{{ form_widget(userForm.zipcode, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            
+            {% if userForm.city.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(userForm.city) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(userForm.city) }}{{ form_widget(userForm.city, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            
+            {% if userForm.country.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(userForm.country) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(userForm.country) }}{{ form_widget(userForm.country, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            
+            {% if userForm.phone.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(userForm.phone) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(userForm.phone) }}{{ form_widget(userForm.phone, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            
+            {% if userForm.mobile.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(userForm.mobile) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(userForm.mobile) }}{{ form_widget(userForm.mobile, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+        </div>
+        <div id="tabs-4">
+            {# display all remaining fields. Should be user settings #}
+            {% for child in userForm.settings %}
+                {% if child.vars.errors|length > 0 %}
+                    <div class="ui-state-error">{{ form_errors(child) }}</div>
+                {% endif %}
+                <div class="field">{{ form_label(child) }}{{ form_widget(child, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            {% endfor %}          
+        </div>
+    </div>
+    {{ form_end(userForm) }}
+{% endblock %}
+
+{% block footBody %}
+   {{ parent() }}
+    <script>
+        "use strict";   
+        require(["jquery-ui", "strength"], function(Jq) {
+            Jq('#user_password_first').strength({
+                 strengthButtonText: ''
+            }).trigger('keyup');
+            Jq("#user_gender").buttonset();
+        });
+        var buttonByTab = {{buttonByTab|json_encode|raw}};
+    </script>
+    <script type="text/javascript" src="/common/assets/buttonByTab.js"></script>
+   <script src="/assets/mydocumentversion.js"></script>
+{% endblock %}
+{% endspaceless %}

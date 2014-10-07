@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://b.ilmatar.localhost/" />
+<title>mail</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">mail</td></tr>
+</thead><tbody>
+<!--Must start from FRA site (default config)-->
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_username</td>
+	<td>${adminUsername}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_password</td>
+	<td>${adminPassword}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=buttonLogin</td>
+	<td></td>
+</tr>
+<!--Create new user-->
+<tr>
+	<td>open</td>
+	<td>/admin/utilisateur/editer</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_firstname</td>
+	<td>aaa</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_lastname</td>
+	<td>aaa</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=logintab</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>&quot;x&quot; + Math.floor(Math.random()*15000) + &quot;@castelis.com&quot;</td>
+	<td>username</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_username</td>
+	<td>${username}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_password_first</td>
+	<td>aaaaaaaa</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=user_password_second</td>
+	<td>aaaaaaaa</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=save</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.noty_message</td>
+	<td>L'opération demandée s'est déroulée avec succès (id: *).</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.noty_message</td>
+	<td></td>
+</tr>
+<!--Send message to new user-->
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='userInfo']/a/i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ui-id-4</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=composeMail_tos</td>
+	<td>${username}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=composeMail_subject</td>
+	<td>subject</td>
+</tr>
+<tr>
+	<td>runScript</td>
+	<td>tinyMCE.activeEditor.setContent('body')</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=buttonSend</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.noty_message</td>
+	<td>L'opération demandée s'est déroulée avec succès.</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='userInfo']/a/i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ui-id-3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=ui-accordion-1-header-0</td>
+	<td>*a. aaa : subject</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=#ui-accordion-1-panel-0</td>
+	<td>body</td>
+</tr>
+<!--Check message for new user-->
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[@id='logout']/i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_username</td>
+	<td>${username}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_password</td>
+	<td>aaaaaaaa</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=buttonLogin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=nbUnreadMails</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='userInfo']/a/i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=ui-accordion-1-header-0</td>
+	<td>*: subject</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=#ui-accordion-1-panel-0</td>
+	<td>body</td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>id=nbUnreadMails</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ui-id-3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=#tabSent &gt; p</td>
+	<td>Vous n'avez pas de message.</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[@id='logout']/i</td>
+	<td></td>
+</tr>
+<!--Reset...-->
+</tbody></table>
+</body>
+</html>

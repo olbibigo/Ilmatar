@@ -1,0 +1,30 @@
+{% spaceless %}
+{% extends "common/layout.twig" %}
+
+{% block footHeader %}
+    <link href="/common/assets/jquery-ui/themes/{{ uiTheme }}/jquery-ui.min.css" media="screen" rel="stylesheet"/>
+    <link href="/common/assets/font-awesome/css/font-awesome.4.1.0.{{ app.debug ? '' : 'min.' }}css" media="screen" rel="stylesheet"/>
+    <link href="/assets/subLayout.css" media="screen" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+    {{ render(path('internal_header', {'landingPage' : app.request.attributes.get('_route')})) }}
+    <div id="body" class="ui-widget-overlay">
+        <div id="scroll-bar-container">
+            <h1 class="ui-widget ui-widget-content ui-corner-all"><i class="fa {{ icon|default('fa-list') }} fa-lg"></i>&nbsp;{{ title|default('') }}</h1>
+            {% include "back/buttons.twig" %}
+            <div class="clearfix"></div>
+            <div id="subBody" class="ui-widget ui-widget-content ui-corner-all">
+                {% block subBody %}<!-- EMPTY -->{% endblock %}
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    {{ render(path('internal_footer')) }}
+{% endblock %}
+
+{% block footBody %}
+   <script src="/assets/subLayout.js"></script>
+{% endblock %}
+{% endspaceless %}

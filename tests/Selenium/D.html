@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://b.ilmatar.localhost/" />
+<title>CRUD</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">CRUD</td></tr>
+</thead><tbody>
+<!--Must start from FRA site (default config)-->
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_username</td>
+	<td>${adminUsername}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_password</td>
+	<td>${adminPassword}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=buttonLogin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Pipo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<!--Save-->
+<tr>
+	<td>click</td>
+	<td>css=div.button.btnAction</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.noty_message</td>
+	<td>Une ligne doit être sélectionnée pour pouvoir accomplir cette opération</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.noty_message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>mouseOver</td>
+	<td>css=td.ui-state-default.jqgrid-rownum</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=td.ui-state-default.jqgrid-rownum</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>&quot;x&quot; + Math.floor(Math.random()*15000) + &quot;@castelis.com&quot;</td>
+	<td>username</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[4]/input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[4]/input</td>
+	<td>${username}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>Math.random()</td>
+	<td>value</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[5]/input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[5]/input</td>
+	<td>${value}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[6]/input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeValue</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[6]/input</td>
+	<td>Thedate</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[8]/input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[8]/input</td>
+	<td>${username}</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@class='buttonContainer']/div[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.noty_message</td>
+	<td>L'opération demandée s'est déroulée avec succès (id: *).</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.noty_message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[4]</td>
+	<td>${username}</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[5]</td>
+	<td>javascript{storedVars['value'].toFixed(2).replace('.', ',')}</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[6]</td>
+	<td>${Thedate}</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[8]</td>
+	<td>${username}</td>
+</tr>
+<!--Delete-->
+<tr>
+	<td>mouseOver</td>
+	<td>css=td.ui-state-default.jqgrid-rownum</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=td.ui-state-default.jqgrid-rownum</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@class='buttonContainer']/div[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=dData</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.noty_message</td>
+	<td>L'opération demandée s'est déroulée avec succès (id: *).</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.noty_message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[4]</td>
+	<td>${username}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[@id='logout']/i</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

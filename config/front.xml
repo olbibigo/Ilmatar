@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <app>front</app>
+    <app.languages type="collection">
+        <language><!-- first : Default -->
+            <name>Français</name>
+            <code>fr</code>
+            <code.html>fr</code.html>
+            <code.js>fr</code.js>
+        </language>
+        <language>
+            <name>English</name>
+            <code>en</code>
+            <code.html>en</code.html>
+            <code.js>en</code.js>
+        </language>
+    </app.languages>
+    <https>false</https>
+    <app.controllers type="collection">
+        <value>Common</value>
+        <value>Front</value>
+        <!-- Add other controllers here -->
+    </app.controllers>
+</configuration>

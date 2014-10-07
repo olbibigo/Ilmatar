@@ -1,0 +1,28 @@
+{% spaceless %}
+{% extends 'knp_menu.html.twig' %}
+
+{# @todo: finds way to use macro from parent templates instead of redefining it #}
+{% macro attributes(attributes) %}
+{% for name, value in attributes %}
+    {%- if value is not none and value is not sameas(false) -%}
+        {{- ' %s="%s"'|format(name, value is sameas(true) ? name|e : value|e)|raw -}}
+    {%- endif -%}
+{%- endfor -%}
+{% endmacro %}
+
+{% block linkElement %}
+    <a href="{{ item.uri }}"{{ _self.attributes(item.linkAttributes) }}>
+        <i class="fa {{ item.getExtra('data-iconClass') }} fa-lg"></i>
+        {{ block('label') }}
+    </a>
+{% endblock %}
+
+{% block spanElement %}
+    <i class="fa {{ item.getExtra('data-iconClass') }} fa-lg"></i> 
+    {% if options.allow_safe_labels and item.getExtra('safe_label', false) %}
+        {{ item.label|raw }}
+    {% else %}
+        {{ item.label }}
+    {% endif %}
+{% endblock %}
+{% endspaceless %}

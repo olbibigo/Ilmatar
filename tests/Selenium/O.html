@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://b.ilmatar.localhost/" />
+<title>My documents</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">My documents</td></tr>
+</thead><tbody>
+<!--Must start from FRA site (default config)-->
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>window.document.domain</td>
+	<td>host</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_username</td>
+	<td>${adminUsername}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_password</td>
+	<td>${adminPassword}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=buttonLogin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertLocation</td>
+	<td>http://${host}/admin/tableau_de_bord</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//span[@id='logged']/i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Gérer mes documents</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Ilmatar r1 - Mes documents</td>
+	<td></td>
+</tr>
+<!--Upload a document-->
+<tr>
+	<td>click</td>
+	<td>id=upload</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=form_path0</td>
+	<td>C:\wamp\www\Ilmatar\tests\Selenium\document.txt</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=addFileButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=form_path1</td>
+	<td>C:\wamp\www\Ilmatar\tests\Selenium\document2.txt</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@aria-describedby='uploadFormContainer']/div/div/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.noty_message</td>
+	<td>Les documents ont été correctement déposés.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.noty_message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[3]</td>
+	<td>document.txt</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[4]</td>
+	<td>text/plain</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[9]</td>
+	<td>1</td>
+</tr>
+<!--Upload the same document-->
+<tr>
+	<td>click</td>
+	<td>id=upload</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=form_path0</td>
+	<td>C:\wamp\www\Ilmatar\tests\Selenium\document.txt</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@aria-describedby='uploadFormContainer']/div/div/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.noty_message</td>
+	<td>Le document a été correctement déposé.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.noty_message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[9]</td>
+	<td>2</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='list']/tbody/tr[3]/td[3]</td>
+	<td>document2.txt</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='list']/tbody/tr[3]/td[4]</td>
+	<td>text/plain</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='list']/tbody/tr[3]/td[9]</td>
+	<td>1</td>
+</tr>
+<!--Preview & Download-->
+<tr>
+	<td>click</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[10]/a/i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertVisible</td>
+	<td>//div[@aria-describedby='previewContainer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@aria-describedby='previewContainer']/div/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[10]/a[2]/i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertVisible</td>
+	<td>//div[@aria-describedby='downloadFormContainer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertXpathCount</td>
+	<td>//select[@id='version']/option</td>
+	<td>2</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@aria-describedby='downloadFormContainer']/div/div/button</td>
+	<td>Télécharger</td>
+</tr>
+<tr>
+	<td>assertVisible</td>
+	<td>//div[@aria-describedby='downloadFormContainer']/div/div/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@aria-describedby='downloadFormContainer']/div/button</td>
+	<td></td>
+</tr>
+<!--Delete-->
+<tr>
+	<td>click</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[10]/a[3]/i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertVisible</td>
+	<td>//div[@aria-describedby='deleteContainer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@aria-describedby='deleteContainer']/div/div/button</td>
+	<td>Toutes les versions</td>
+</tr>
+<tr>
+	<td>assertVisible</td>
+	<td>//div[@aria-describedby='deleteContainer']/div/div/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@aria-describedby='deleteContainer']/div/div/button[2]</td>
+	<td>Seulement la dernière version</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@aria-describedby='deleteContainer']/div/div/button[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.noty_message</td>
+	<td>La dernière version du document a été supprimée avec succès.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.noty_message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[9]</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[10]/a[3]/i</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertVisible</td>
+	<td>//div[@aria-describedby='deleteConfirmContainer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@aria-describedby='deleteConfirmContainer']/div/div/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.noty_message</td>
+	<td>Le document et son historique ont été supprimés avec succès.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.noty_message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertXpathCount</td>
+	<td>xpath=//tr[@role='row']</td>
+	<td>2</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='list']/tbody/tr[2]/td[3]</td>
+	<td>document2.txt</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[@id='logout']/i</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

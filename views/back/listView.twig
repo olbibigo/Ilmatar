@@ -1,0 +1,51 @@
+{% spaceless %}
+{% extends "back/subLayout.twig" %}
+
+{% block footHeader %}
+   {{ parent() }}
+    <link href="/common/assets/jqgrid/css/ui.jqgrid.css" media="screen" rel="stylesheet"/>
+{% endblock %}
+
+{% block subBody %}
+    {% if jqInitialFilter is not empty %}
+        <p>{{ app.translator.trans("Note that grid is actively filtered by default. You can edit it by clicking on <i>Find a record</i> at the bottom left.")|raw }}</p>
+    {% elseif presets is defined %}
+        <div class="field">
+            <label for="presets">{{ app.translator.trans('Available preset filters') }}</label>: 
+            <select name="presets" id="presets">
+                <option value="[]" selected>{{ app.translator.trans("--- Choose a preset ---") }}</option>
+                {% for label,preset in presets %}
+                    <option value='{{ preset|raw }}'>{{ app.translator.trans(label) }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    {% endif %}
+    <table id="list"></table>
+    <div id="pager"></div>
+    {% include "back/export.twig" %}
+
+    <script>
+        "use strict";
+        var jqGridColNames      = {{ jqGridColNames|json_encode()|raw }};
+        var jqGridColModels     = {{ jqGridColModels|json_encode()|raw }};
+        var jqGridColGroups     = {{ jqGridColGroups|json_encode()|raw }};
+        var jqGridFooterData    = {{ jqGridFooterData|json_encode()|raw }};
+        var jqGridDataReadUrl   = "{{ jqGridDataReadUrl }}";
+        var jqGridSortName      = "{{ jqGridSortName }}";
+        var jqGridSortOrder     = "{{ jqGridSortOrder }}";
+        var jqGridName          = "{{ jqGridName }}";
+        var jqGridRowIdUrlParam = "{{ jqGridRowIdUrlParam }}";
+        var jqInitialFilter     = '{{ jqInitialFilter|json_encode()|raw }}';{# keep it as string #}
+        //var jqGridData        = 'jqGridData|json_encode()|raw';
+        var jqGridListId        = '#'+'list';
+        var jqGridUserDataOnFooter = {{ jqGridUserDataOnFooter }};
+    </script>
+    {% block page %}<!-- EMPTY -->{% endblock %}
+{% endblock %}
+
+{% block footBody %}
+   {{ parent() }}
+   <script src="/common/assets/export.js"></script>
+   <script src="/common/assets/jqGridRead.js"></script>
+{% endblock %}
+{% endspaceless %}

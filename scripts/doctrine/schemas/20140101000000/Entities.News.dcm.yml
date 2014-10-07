@@ -1,0 +1,41 @@
+Entities\News:
+  type: entity
+  repositoryClass: Repositories\News
+  table: news
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    subject:
+      type: string(256)
+      notnull: true
+      notblank: true
+    body:
+      type: text
+      notnull: true
+      notblank: true
+    created_at:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updated_at:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+    created_by:
+      type: string
+      gedmo:
+        blameable:
+          on: create
+    updated_by:
+      type: string
+      gedmo:
+        blameable:
+          on: update
+  lifecycleCallbacks:
+    prePersist: [ assertValidNews ]
+    preUpdate: [ assertValidNews ]

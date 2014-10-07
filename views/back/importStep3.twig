@@ -1,0 +1,40 @@
+{% spaceless %}
+{% set icon = 'fa-pencil' %}
+{% extends "back/subLayout.twig" %}
+
+{% block subBody %}
+    <div class="ui-widget">
+        {% for child in fatalerror %}
+        <div class="ui-state-error ui-corner-all" style="margin-top: 5px; padding: 0 .7em;">
+            <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>{{child}}</p>
+        </div>   
+        {% endfor %}
+        {% for child in simpleerror %}
+        <div class="ui-state-highlight ui-corner-all" style="margin-top: 5px; padding: 0 .7em;">
+            <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>{{child}}</p>
+        </div>   
+        {% endfor %}
+        <div class="ui-state-active ui-corner-all" style="margin-top: 5px; padding: 0 .7em;">
+            <p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>{{count}}</p>
+        </div>   
+    </div> 
+    <form action="{{ app.url_generator.generate("import-step1") }}" method="post">
+        <div class="field">
+            <label for="buttonNewImport">&nbsp;</label>
+            <button id="buttonNewImport" name="buttonNewImport" type="submit">{{ buttonlabel["newimport"] }}</button>
+        </div>
+    </form>
+{% endblock %}
+
+{% block footBody %}
+   {{ parent() }}
+    <script>
+        "use strict";
+
+        require(["jquery-ui"], function (Jq) {
+            Jq("#buttonNewImport").button({icons:{primary: "ui-icon-arrowreturnthick-1-s"}});
+        });
+    </script>
+{% endblock %}
+
+{% endspaceless %}

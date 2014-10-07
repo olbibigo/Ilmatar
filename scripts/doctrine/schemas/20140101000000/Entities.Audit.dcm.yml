@@ -1,0 +1,35 @@
+Entities\Audit:
+  type: entity
+  repositoryClass: Repositories\Audit
+  table: audit
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    entity_type:
+      type: string
+      length: 256
+    entity_id:
+      type: integer
+    property_name:
+      type: string
+      length: 256
+    old_value:
+      type: string
+    new_value:
+      type: string
+    created_at:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    created_by:
+      type: string
+      gedmo:
+        blameable:
+          on: create
+  lifecycleCallbacks:
+    prePersist: [ assertValidAudit ]
+    preUpdate: [ assertValidAudit ]

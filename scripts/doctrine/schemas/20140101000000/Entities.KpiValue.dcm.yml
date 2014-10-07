@@ -1,0 +1,22 @@
+Entities\KpiValue:
+  type: entity
+  repositoryClass: Repositories\KpiValue
+  table: kpi_value
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    date:
+      type: date
+    value:
+      type: float
+  manyToOne:
+    kpi:
+      targetEntity: Entities\Kpi
+      inversedBy: values
+      name: kpi_id
+      referencedColumnName: id
+      joinColumn:
+        nullable: false

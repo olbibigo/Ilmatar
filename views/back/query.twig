@@ -1,0 +1,92 @@
+{% spaceless %}
+{% set icon = 'fa-pencil' %}
+{% extends "back/subLayout.twig" %}
+
+{% block footHeader %}
+   {{ parent() }}
+    <link href="/common/assets/jqgrid/css/ui.jqgrid.css" media="screen" rel="stylesheet"/>
+{% endblock %}
+
+{% block subBody %}
+    {{ form_start(queryForm) }}
+    <div id="tabs">
+        <ul>
+        <li><a id="persontab" href="#tabs-1">{{ app.translator.trans('Query') }}</a></li>
+        <li><a id="logintab" href="#tabs-2">{{ app.translator.trans('Report push') }}</a></li>
+        </ul>
+        <div id="tabs-1">
+            {% if queryForm.visibility.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(queryForm.visibility) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(queryForm.visibility) }}{{ form_widget(queryForm.visibility) }}</div>
+
+            {% if queryForm.name.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(queryForm.name) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(queryForm.name) }}{{ form_widget(queryForm.name, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+
+            {% if queryForm.comment.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(queryForm.comment) }}</div>
+            {% endif %}
+            <div class="field tinymce">{{ form_label(queryForm.comment) }}<p>{{ form_widget(queryForm.comment, {'attr': {'class': 'editmce'}}) }}</p></div>
+
+            {% if queryForm.query.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(queryForm.query) }}</div>
+            {% endif %}
+            <div class="field tinymce">{{ form_label(queryForm.query) }}<p>{{ form_widget(queryForm.query, { 'attr': {'class': 'ui-widget-content'} }) }}</p></div>
+        </div>
+        <div id="tabs-2">
+            {% if queryForm.is_exported.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(queryForm.is_exported) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(queryForm.is_exported) }}{{ form_widget(queryForm.is_exported, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            
+            {% if queryForm.mail_list.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(queryForm.mail_list) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(queryForm.mail_list) }}{{ form_widget(queryForm.mail_list, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            
+            {% if queryForm.export_format.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(queryForm.export_format) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(queryForm.export_format) }}{{ form_widget(queryForm.export_format, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            
+            {% if queryForm.mail_repeats.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(queryForm.mail_repeats) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(queryForm.mail_repeats) }}{{ form_widget(queryForm.mail_repeats, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            
+            {% if queryForm.mail_offset.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(queryForm.mail_offset, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            {% endif %}
+            {# offset is dynamically set depending on mail_repeats. mail_offset is a hidden field #}
+            {# invalid HTML5 because label.for target a hidden field #}
+            <div class="field">{{ form_label(queryForm.mail_offset) }}<select id="query_mail_offset_selector"></select>{{ form_widget(queryForm.mail_offset) }}</div>
+            
+        </div>
+    </div>
+    {{ form_end(queryForm) }}
+    
+    <table id="list"></table>
+    <div id="exportGridForm" title="{{ app.translator.trans('Export options') }}" class="hide">
+        <p class="bold">{{ app.translator.trans('Export format') }}</p>
+        {% for item in exportFormat %}
+            <span class="radio"><input type="radio" name="exportFormat" value="{{ item }}" {% if loop.first %}checked{% endif %}>{{ item }}</span>
+        {% endfor %}
+        <p class="bold">{{ app.translator.trans('Page orientation (PDF)') }}</p>
+        {% for item in exportOrientation %}
+            <span class="radio"><input type="radio" name="exportOrientation" value="{{ item }}" {% if loop.first %}checked{% endif %}>{{ app.translator.trans(item) }}</span>
+        {% endfor %}
+    </div>    
+{% endblock %}
+
+{% block footBody %}
+   {{ parent() }}
+    <script>
+        "use strict";
+        var executeUrl = "{{ executeUrl }}";
+        var exportUrl  = "{{ exportUrl }}";        
+    </script>
+   <script src="/assets/query.js"></script>
+{% endblock %}
+{% endspaceless %}

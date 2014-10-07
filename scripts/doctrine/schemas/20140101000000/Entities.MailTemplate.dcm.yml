@@ -1,0 +1,55 @@
+Entities\MailTemplate:
+  type: entity
+  repositoryClass: Repositories\MailTemplate
+  table: mail_template
+  gedmo:
+    soft_deleteable:
+      field_name: deleted_at
+      time_aware: false
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    code:
+      type: string(32)
+      notnull: true
+      notblank: true
+      unique: true
+    is_active:
+      type: boolean
+    object:
+      type: string(256)
+      notnull: true
+      notblank: true
+    body:
+      type: text
+      notnull: true
+      notblank: true
+    created_at:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updated_at:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+    deleted_at:
+      type: datetime
+      nullable: true
+    created_by:
+      type: string
+      gedmo:
+        blameable:
+          on: create
+    updated_by:
+      type: string
+      gedmo:
+        blameable:
+          on: update
+  lifecycleCallbacks:
+    prePersist: [ assertValidMailTemplate ]
+    preUpdate: [ assertValidMailTemplate ]

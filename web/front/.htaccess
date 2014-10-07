@@ -1,0 +1,7 @@
+RewriteEngine on
+
+# On ne réécrit pas les urls pour les CSS, Javascripts et images
+RewriteRule ^(.*)\.(gif|png|jpe?g|css|js|html?|swf|flv|xml|htc|ttf|woff)$ - [NC,L]
+
+# Pour tout le reste on réécrit avec sys=
+RewriteRule ^ index.php [QSA,L]

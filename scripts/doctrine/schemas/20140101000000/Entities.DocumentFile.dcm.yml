@@ -1,0 +1,46 @@
+Entities\DocumentFile:
+  type: entity
+  repositoryClass: Repositories\DocumentFile
+  table: document_file
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    path:
+      type: string
+      length: 1024
+    version:
+      type: integer
+    created_at:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updated_at:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+    created_by:
+      type: string
+      gedmo:
+        blameable:
+          on: create
+    updated_by:
+      type: string
+      gedmo:
+        blameable:
+          on: update
+  lifecycleCallbacks:
+    prePersist: [ assertValidDocumentFile ]
+    preUpdate: [ assertValidDocumentFile ]
+  manyToOne:
+    document:
+      targetEntity: Entities\Document
+      inversedBy: files
+      name: document_id
+      referencedColumnName: id
+      joinColumn:
+        nullable: false

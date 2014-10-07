@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://b.ilmatar.localhost/" />
+<title>translation</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">translation</td></tr>
+</thead><tbody>
+<!--Must start from FRA site (default config)-->
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_username</td>
+	<td>${adminUsername}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_password</td>
+	<td>${adminPassword}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=buttonLogin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Traductions</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<!--Save translation-->
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>Traductions</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=ui-id-2</td>
+	<td>FR</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=ui-id-3</td>
+	<td>FR_ROUTE</td>
+</tr>
+<tr>
+	<td>mouseOver</td>
+	<td>//tr[@id='Translations']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//tr[@id='Translations']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//tr[@id='Translations']/td[3]/input</td>
+	<td>xxx</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.button.btnAction</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.noty_message</td>
+	<td>L'opération demandée s'est déroulée avec succès (id: Translations).</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.noty_message</td>
+	<td></td>
+</tr>
+<!--Save route fragment translation-->
+<tr>
+	<td>open</td>
+	<td>/admin/traduction/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ui-id-3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>mouseOver</td>
+	<td>//tr[@id='translation']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//tr[@id='translation']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//tr[@id='translation']/td[3]/input</td>
+	<td>xxx</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='ui-tabs-2']/div/div[@title='Enregistrer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.noty_message</td>
+	<td>L'opération demandée s'est déroulée avec succès (id: translation).</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.noty_message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/admin/xxx/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>xxx</td>
+</tr>
+<!--Reset-->
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>mouseOver</td>
+	<td>//tr[@id='Translations']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//tr[@id='Translations']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//tr[@id='Translations']/td[3]/input</td>
+	<td>Traductions</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.button.btnAction</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/admin/xxx/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ui-id-3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>mouseOver</td>
+	<td>//tr[@id='translation']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//tr[@id='translation']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>//tr[@id='translation']/td[3]/input</td>
+	<td>traduction</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='ui-tabs-2']/div/div[@title='Enregistrer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[@id='logout']/i</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

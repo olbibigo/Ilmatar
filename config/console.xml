@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <app>console</app>
+    <debug>false</debug>
+    <command.classes>
+        <!-- Jobby is the PHP cron job manager --> 
+        <!-- Is activated by crontab: * * * * * cd /path/to/project && php app/console run:jobs 1>> /dev/null 2>&1) -->
+        <value>JobbyCommand</value>
+        <value>InsertFixturesCommand</value>
+        <value>GetVersionCommand</value>
+        <value>UpdateVersionCommand</value>
+        <value>PatchCommand</value>
+        <value>WarmUpCommand</value>
+        <!-- Add other command classes here -->
+    </command.classes>
+    <!-- Warning: this route is defined into PublickBackController -->
+    <app.link.pattern>http://b.ilmatar.localhost/report-download/{type}/{token}</app.link.pattern>
+    <app.languages type="collection">
+        <language><!-- first : Default -->
+            <name>Français</name>
+            <code>fr</code>
+            <code.html>fr</code.html>
+            <code.js>fr</code.js>
+        </language>
+        <language>
+            <name>English</name>
+            <code>en</code>
+            <code.html>en</code.html>
+            <code.js>en</code.js>
+        </language>
+    </app.languages> 
+    <app.mail.attempt.count.max>3</app.mail.attempt.count.max>
+    <app.mail.set.size>25</app.mail.set.size>
+    <app.mail.from.email>no-reply@ilmatar.com</app.mail.from.email>
+    <app.mail.from.name>Ilmatar</app.mail.from.name>
+</configuration>

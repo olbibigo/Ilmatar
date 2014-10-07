@@ -1,0 +1,13 @@
+Entities\Version:
+  type: entity
+  repositoryClass: Repositories\Version
+  table: version
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    version:
+      type: string
+      length: 14

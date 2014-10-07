@@ -1,0 +1,294 @@
+body {
+    font: 9pt Arial;
+    max-width:100%;
+    overflow-x: hidden;
+    z-index: 0;
+}
+a {
+    text-decoration: none;
+}
+input[type="radio"] {
+    vertical-align:middle;
+    margin-right:5px;
+}
+input, select, textarea {
+    color: #000;
+}
+#topBanner {
+    height: 62px;
+    width:100%;
+    top:0;
+    left:0;
+    position: fixed;
+    z-index: 1; /* au dessus du <div#body /> */
+}
+#topBanner #userInfo {
+    height: 30px;
+    margin-top: 2px;
+    margin-right: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 13px;
+}
+#topBanner #userInfo #logged {
+    font-size: 13px;
+    margin-top: 5px;
+    margin-left: 10px;
+    text-decoration: none;
+}
+#topBanner #userInfo #logged span{
+    margin-left:5px;
+    margin-right: 20px;
+}
+#topBanner #companyLogo {
+    background-color: #fff;
+    height: 62px;
+    border:0;
+    width: 249px;
+}
+#companyLogo img {
+    margin: 7px 40px;
+}
+#menus {
+    position: absolute;
+    bottom: 0;
+    height: 32px;
+    left: 250px;
+    right:0;
+    -webkit-user-select: none;
+    -moz-user-select: -moz-none;
+    -ms-user-select: none;
+}
+#menus li a{
+    text-decoration:none;
+}
+#menus > ul {
+    list-style: none outside none;
+}
+#menus > ul > li {
+    cursor: pointer;
+    float: left;
+    position: relative;
+    text-align: center;
+    width: 180px;
+    height: 30px;
+    padding-top: 7px;
+}
+#menus > ul > li > ul {
+    border: 2px solid #FFFFFF;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 3px #666666;
+    display: none;
+    margin-left: -2px;
+    position: absolute;
+    width: 100%;
+    z-index: 4999;
+}
+
+#menus > ul > li > ul > li {
+    list-style: none outside none;
+    text-align: left;
+    text-indent: 2px;
+    white-space: nowrap;
+    z-index: 4999;
+}
+#menus > ul > li:hover > ul {
+    display: block;
+}
+#menus i {
+   width:20px;
+}
+#body {   
+    padding-top: 64px; /* top 64*/
+    padding-bottom: 20px; /* #bottomBanner height 20px */
+    overflow: hidden;
+    position:fixed;
+    /*top:64px;*/
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+#scroll-bar-container {
+    padding-top: 25px; /* #body padding-top: 25px; */
+    padding-left:1%;
+    padding-right:1%;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+h1 {
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 15px;
+    margin-top: 0px;
+    margin-bottom: 25px
+}
+#subBody {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    overflow-y: hidden;
+    padding:5px
+}
+#bottomBanner {
+    position:fixed;
+    bottom: 0;
+    height: 20px;
+    left: 0;
+    width: 100%;
+}
+.validateTips {
+   border: 1px solid transparent; padding: 0.3em;
+}
+.buttonContainer {
+    float: right;
+}
+#bottomBanner > .fa,
+#logout > .fa{
+    color: #f80;
+    cursor: pointer;
+}
+#logout > .fa:hover{
+    color: #B45F04
+}
+.ui-widget-overlay{
+  opacity : 0.9
+}
+.ui-jqgrid tr.jqgrow td {vertical-align:top}
+
+.field{
+    padding: 10px
+}
+.field  > label {
+    width : 200px;
+    display : inline-block;
+}
+.field  > label.required:after {
+   content: " *";
+   color: #f00; 
+}
+.field > div {
+    display: inline
+}
+.field > div > label {
+    width : 150px;
+    padding-left:5px;
+    display : inline-block;
+}
+.field > input, .field > p > textarea{
+    width:400px
+}
+.tinymce label{
+  vertical-align:top
+}
+.tinymce p{
+   display: inline-block;
+}
+span.radio {
+   margin-right: 20px
+}
+.bold {
+   font-weight:bold
+}
+.chartSuperContainer{
+    width:48%;
+    float:left;
+    margin-right:20px
+}
+.chartContainer{
+    width:100%;
+    height:300px;
+    margin-bottom:20px;
+    text-align:center;
+}
+.zebra {
+    background-color: #dddddd;
+    background-image: none;
+}
+.username{
+    margin-right: 15px
+}
+.mailboxWarning{
+    color: #FFF;
+}
+.gem{
+    background: none repeat scroll 0 0 #E04C4C;
+    border-radius: 2px;
+    color: #fff;
+    font-size: 10px;
+    font-weight: normal;
+    left: 16px;
+    line-height: 14px;
+    padding: 0 4px;
+    position: absolute;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75);
+    top: -2px;
+}
+.red{
+    color: #f00;
+}
+.marginBottom{
+    margin-bottom: 30px;
+}
+.info{
+    margin-top: 15px;
+    margin-bottom: 30px;
+    padding: 5px;
+    width:99%
+}
+.button{
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 15px;
+    margin-left: 10px;
+    float: left;
+    cursor: pointer;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+.button:hover  i{
+    color: #B1CF69;
+}
+
+/* JQGRID */
+#sopt_menu .ui-menu-item {
+    padding: 0;
+}
+#sopt_menu .ui-menu-item a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 2px 0.4em;
+}
+#sopt_menu .ui-menu-item a.ui-state-hover {
+    font-weight: 400;
+}
+#sopt_menu .ui-menu-item a:not(.ui-state-hover),
+#menus.ui-widget-content ul > li > a:not(.ui-state-hover) {
+    border-left: 1px transparent solid;
+    border-right: 1px transparent solid;
+}
+/* Main menu */
+#menus li > a,
+#menus.ui-widget-content ul > li > a {
+    display: block;
+}
+#menus.ui-widget-content ul > li > a {
+    padding: 2px;
+}
+
+.btnAction:hover .fa,
+button:hover .ui-icon,
+a:hover i.fa,
+#logged:hover .fa,
+.fa-envelope:hover,
+.fa-power-off:hover,
+.fa-fire:hover,
+li:hover .fa {
+    transform: rotate(360deg);
+    transition: all 0.3s ease-in-out;
+}

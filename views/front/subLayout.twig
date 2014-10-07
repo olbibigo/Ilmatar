@@ -1,0 +1,14 @@
+{% spaceless %}
+{% extends "common/layout.twig" %}
+
+{% block footHeader %}
+    {{ app['orm.em'].getRepository('\\Entities\\Parameter').findOneByCode(constant('\\Entities\\Parameter::ANALYTICS_SNIPPET')).getValue()|raw }}
+{% endblock %}
+
+{% block body %}
+    {{ render(path('internal_header', {'username': username|default('anonymous')})) }}
+    {% block subBody %}
+    {% endblock %}
+    {{ render(path('internal_footer', {'username': username|default('anonymous')})) }}
+{% endblock %}
+{% endspaceless %}

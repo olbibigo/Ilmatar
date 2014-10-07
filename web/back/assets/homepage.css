@@ -1,0 +1,38 @@
+#hpbody {
+    background-image: url('/img/background.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    bottom: 20px;
+    clear: both;
+    left: 0;
+    overflow: auto;
+    padding: 20px 5px 10px;
+    position: fixed;
+    right: 0;
+    top: 64px;
+}
+#content {
+    margin: 20% auto 0;
+    padding: 15px 0;
+    text-align: center;
+    width: 600px;
+}
+#content .title {
+    font-size: 1.3em;
+    margin-bottom: 30px;
+    font-weight:bold;
+}
+#content p {
+    margin-bottom: 10px;
+}
+#content label {
+    float: left;
+    padding-right: 10px;
+    padding-top: 4px;
+    text-align: right;
+    width: 160px;
+}
+p input {
+    min-height: 1.8em;
+    width: 350px;
+}

@@ -1,0 +1,23 @@
+Entities\RouteAnalytics:
+  type: entity
+  repositoryClass: Repositories\RouteAnalytics
+  table: route_analytics
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  indexes:
+    page_idx:
+      columns: [ page ]
+  fields:
+    page:
+      type: string(64)
+    counter:
+      type: integer
+    active_at:
+      type: datetime
+  manyToOne:
+    user:
+      targetEntity: Entities\User
+      name: user_id

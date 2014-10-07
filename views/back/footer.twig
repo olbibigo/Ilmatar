@@ -1,0 +1,37 @@
+{% spaceless %}
+<div id="bottomBanner" class="ui-widget ui-widget-header center">Copyleft 2014&nbsp;<i class="fa fa-fire"></i>&nbsp;Ilmatar by CASTELIS</div>
+
+<div id="aboutContainer" title="{{ app.translator.trans("About...") }}">
+    <p>{{ app.translator.trans('<b>%appname%</b> is powered by the <b>Ilmatar</b> framework, a Castelis software solution to design modern, elegant and efficient webapps.', {'%appname%' : appName})|raw }}<p>
+    <p style="text-align:center;margin-top:20px;margin-bottom:30px">
+        <a href="http://www.castelis.fr" target="blank" style="text-align:center"><img src="/img/logoCastelis.png" alt="Castelis logo"/></a>
+    </p>
+    <p style="text-align:center;">
+        <a href="http://validator.w3.org/check?uri={{ url(constant('\\Project\\Controller\\PublicBackController::PUBLIC_DEFAULT_HOMEPAGE'))|url_encode }}" target="blank"><img src="/common/img/valid_html5.png" alt="HTML5" /></a>&nbsp;
+        <a href="http://www.php.net" target="blank"><img src="/common/img/php_powered.png" alt="PHP5"/></a>&nbsp;
+        <a href="http://www.mysql.com" target="blank"><img src="/common/img/mysql_powered.jpg" alt="MySQL"/></a>&nbsp;
+        <a href="http://www.jquery.com" target="blank"><img src="/common/img/jquery_powered.png" alt="jQuery"/></a>
+    </p>
+</div>
+
+<script>
+    require(["jquery-ui"], function(Jq) {
+        Jq("#aboutContainer").dialog({
+            autoOpen: false,
+            minWidth: 400,
+            modal:true,
+            show: {
+                effect: "fade",
+                duration: 500
+            },
+            hide: {
+                effect: "fade",
+                duration: 500
+            }
+        });
+        Jq( ".fa-fire" ).on('click', function() {
+            Jq("#aboutContainer" ).dialog("open"); 
+        });
+    });
+</script>
+{% endspaceless %}

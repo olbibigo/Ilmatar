@@ -1,0 +1,36 @@
+Entities\Kpi:
+  type: entity
+  repositoryClass: Repositories\Kpi
+  table: kpi
+  indexes:
+    label_idx:
+      columns: [ code ]
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    code:
+      type: string(32)
+      notnull: true
+      notblank: true
+      unique: true
+    is_active:
+      type: boolean
+    description:
+      type: string(256)
+      notnull: true
+      notblank: true
+    class:
+      type: string(256)
+      notnull: true
+      notblank: true
+  oneToMany:
+    values:
+      targetEntity: Entities\KpiValue
+      mappedBy: kpi
+  manyToMany:
+    roles:
+      targetEntity: Entities\Role
+      mappedBy: kpis

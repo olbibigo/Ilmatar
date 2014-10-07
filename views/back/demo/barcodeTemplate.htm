@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>{{ title }}</title>
+</head>
+<body>
+    <h2>1D barcode</h2>
+        <div>
+            Code39: <img src="data:{{ barcode1DCode39Mime }};base64,{{ barcode1DCode39Binary }}" alt="" style="vertical-align:middle;margin-right:30px"/>
+            EAN 13: <img src="data:{{ barcode1DEan13Mime }};base64,{{ barcode1DEan13Binary }}" alt="" style="vertical-align:middle;margin-right:30px"/>
+            EAN 8: <img src="data:{{ barcode1DEan8Mime }};base64,{{ barcode1DEan8Binary }}" alt="" style="vertical-align:middle"/>
+        <!--EAN 128: TODO-->
+        </div>
+    <h2>2D barcode</h2>
+        <div>
+            QRcode: <img src="data:{{ barcode2DQrCodeMime }};base64,{{ barcode2DQrCodeBinary }}" alt="" style="vertical-align:middle;margin-right:30px"/>
+            Datamatrix: <img src="data:{{ barcode2DDatamatrixMime }};base64,{{ barcode2DDatamatrixBinary }}" alt="" style="vertical-align:middle;margin-right:30px"/>
+            PDF417: <img src="data:{{ barcode2DPdf417Mime }};base64,{{ barcode2DPdf417Binary }}" alt="" style="vertical-align:middle;margin-right:30px"/>
+        </div>
+</body>
+</html>

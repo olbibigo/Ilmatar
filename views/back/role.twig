@@ -1,0 +1,74 @@
+{% spaceless %}
+{% set icon = 'fa-pencil' %}
+{% if isAdmin %}
+    {% set uiClass = 'ui-widget-content ui-state-disabled' %}                
+{% else %}
+    {% set uiClass = 'ui-widget-content' %}
+{% endif %}
+{% extends "back/subLayout.twig" %}
+
+{% block footHeader %}
+   {{ parent() }}
+    <link href="/common/assets/jqgrid/css/ui.jqgrid.css" media="screen" rel="stylesheet"/>
+{% endblock %} 
+
+{% block subBody %}
+    {{ form_start(roleForm) }}
+    <div id="tabs">
+        <ul>
+        <li><a href="#tabs-1">{{ app.translator.trans('Role') }}</a></li>
+        <li><a href="{{ path('users-role-display', {'roleId' : roleId}) }}">{{ app.translator.trans('Users') }}</a></li>
+        <li><a href="#tabs-2">{{ app.translator.trans('Access rights') }}</a></li>
+        {% if roleForm.kpis is defined %}
+            <li><a href="#tabs-3">{{ app.translator.trans('Kpi display') }}</a></li>
+        {% endif %}
+        </ul>
+        <div id="tabs-1">
+            {% if roleForm.code.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(roleForm.code) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(roleForm.code) }}{{ form_widget(roleForm.code, { 'attr': {'class': uiClass} }) }}</div>
+            
+            {% if roleForm.description.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(roleForm.description) }}</div>
+            {% endif %}
+            <div class="field tinymce">{{ form_label(roleForm.description) }}<p>{{ form_widget(roleForm.description|e('html'), { 'attr': {'class': uiClass} }) }}</p></div>  
+        </div>
+        <div id="tabs-2">
+            <p>{{ app.translator.trans('Choose here which access rights are given on functionalities for current role.') }}</p>
+            {# display all remaining fields. #}
+            {% for child in roleForm.permissions %}
+                {% if child.vars.errors|length > 0 %}
+                    <div class="ui-state-error">{{ form_errors(child) }}</div>
+                {% endif %}
+                <div class="field">
+                    {{ form_label(child) }}
+                    {{ form_widget(child, { 'attr': {'class': uiClass} }) }}
+                </div>
+            {% endfor %}
+        </div>
+        {% if roleForm.kpis is defined %}
+            <div id="tabs-3">
+                <p>{{ app.translator.trans('Choose here which key performance indicator (KPI) trend charts are displayed on dashboard for current role.') }}</p>
+                {# display all remaining fields. #}
+                    {% for child in roleForm.kpis %}
+                        {% if child.vars.errors|length > 0 %}
+                            <div class="ui-state-error">{{ form_errors(child) }}</div>
+                        {% endif %}
+                        <div class="field">{{ form_label(child) }}{{ form_widget(child) }}</div>
+                    {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    {{ form_end(roleForm) }}
+{% endblock %}
+{% endspaceless %}
+
+{% block footBody %}
+   {{ parent() }}
+   <script>
+    require(["jquery-ui"], function (Jq) {
+        Jq("div[id^='role_kpis_']").buttonset();
+    });
+   </script>
+{% endblock %} 

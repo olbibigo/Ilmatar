@@ -1,0 +1,23 @@
+{% spaceless %}
+{% extends "back/subLayout.twig" %}
+
+{% block subBody %}
+    <h2>1D barcode</h2>
+        <div>
+            Code39: <img src="{{ image64(barcode1DCode39) }}" alt="" style="vertical-align:middle;margin-right:30px"/>
+            EAN 13: <img src="{{ image64(barcode1DEan13) }}" alt="" style="vertical-align:middle;margin-right:30px"/>
+            EAN 8: <img src="{{ image64(barcode1DEan8) }}" alt="" style="vertical-align:middle;margin-right:30px"/>
+            UPC-A: <img src="{{ image64(barcode1DUpca) }}" alt="" style="vertical-align:middle;margin-right:30px"/>
+            UPC-E: <img src="{{ image64(barcode1DUpce) }}" alt="" style="vertical-align:middle;margin-right:30px"/>
+            Code 128: <img src="{{ image64Light(barcode1DCode128) }}" alt="" style="vertical-align:middle"/>
+        </div>
+    <br/><br/>
+    <h2>2D barcode</h2>
+        <div>
+            QRcode: <img src="{{ image64Light(barcode2DQrCode) }}" alt="" style="vertical-align:middle;margin-right:30px"/>
+            DataMatrix: <img src="{{ image64Light(barcode2DDatamatrix) }}" alt="" style="vertical-align:middle;margin-right:30px"/>
+            PDF417: <img src="{{ image64Light(barcode2DPdf417) }}" alt="" style="vertical-align:middle"/>
+        </div>
+{% endblock %}
+
+{% endspaceless %}

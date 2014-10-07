@@ -1,0 +1,23 @@
+{% spaceless %}
+    {% extends "back/listView.twig" %}
+
+    {% block footHeader %}
+        {{ parent() }}
+        <link href="/common/assets/jqgrid/css/ui.jqgrid.css" media="screen" rel="stylesheet"/>
+    {% endblock %}
+
+    {% block page %}
+        {% include "back/subMyDocuments.twig" %}
+    {% endblock %}
+
+    {% block footBody %}
+        {{ parent() }}
+        <script>
+            var downloadUrl = '{{ path('mydocument-user-download') }}';
+            var deleteUrl   = '{{ path('mydocument-user-delete') }}';
+            var progressUrl = '{{ path('download-progress') }}';
+        </script>
+        <script src="/assets/mydocument.js"></script>
+        <script src="/assets/mydocumentversion.js"></script>
+    {% endblock %}
+{% endspaceless %}

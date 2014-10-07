@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://b.ilmatar.localhost/" />
+<title>SQL requester</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SQL requester</td></tr>
+</thead><tbody>
+<!--Must start from FRA site (default config)-->
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_username</td>
+	<td>${adminUsername}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_password</td>
+	<td>${adminPassword}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=buttonLogin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Requêteur</td>
+	<td></td>
+</tr>
+<!--Add-->
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='body']/div/div[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertXpathCount</td>
+	<td>//div[@class='buttonContainer']/div</td>
+	<td>2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=query_name</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=query_query</td>
+	<td>select * from user</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=logintab</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=query_is_exported</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=query_export_format</td>
+	<td>XML</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=query_mail_repeats</td>
+	<td>Toutes les semaines</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=query_mail_offset_selector</td>
+	<td>Dimanche</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=query_mail_repeats</td>
+	<td>Tous les mois</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=query_mail_offset_selector</td>
+	<td>31</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='body']/div/div[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.noty_message</td>
+	<td>L'opération demandée s'est déroulée avec succès (id: *).</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.noty_message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertXpathCount</td>
+	<td>//div[@class='buttonContainer']/div</td>
+	<td>5</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='body']/div/div[4]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.noty_message</td>
+	<td>La requête a été exécutée et les résultats affichés.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.noty_message</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertXpathCount</td>
+	<td>//tr[@role='rowheader']/th</td>
+	<td>24</td>
+</tr>
+<tr>
+	<td>storeXpathCount</td>
+	<td>//table[@id='list']/tbody/tr</td>
+	<td>nbRows</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td> storedVars['nbRows'] &gt;= 1</td>
+	<td>true</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=span.ui-jqgrid-title</td>
+	<td>Résultat de la requête enregistrée</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='body']/div/div[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='exportFormat'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='exportFormat'])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='exportFormat'])[4]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>name=exportFormat</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//input[@name='exportOrientation'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@aria-describedby='exportGridForm']/div/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=div.button.btnAction</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeXpathCount</td>
+	<td>//table[@id='list']/tbody/tr</td>
+	<td>nbRows</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td> storedVars['nbRows'] &gt;= 1</td>
+	<td>true</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[@id='logout']/i</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

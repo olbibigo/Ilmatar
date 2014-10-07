@@ -1,0 +1,41 @@
+{% spaceless %}
+<table style="border:1px solid black">
+    <tr>
+        <th style="border:1px solid black;padding:5px;">{{ app.translator.trans('Nb') }}</th>
+        <th style="border:1px solid black;padding:5px;">{{ app.translator.trans('Name') }}</th>
+        <th style="border:1px solid black;padding:5px;">{{ app.translator.trans('Pattern') }}</th>
+        <th style="border:1px solid black;padding:5px;">{{ app.translator.trans('Methods') }}</th>
+        <th style="border:1px solid black;padding:5px;">{{ app.translator.trans('Defaults') }}</th>
+        <th style="border:1px solid black;padding:5px;">{{ app.translator.trans('Requirements') }}</th>
+        <th style="border:1px solid black;padding:5px;">{{ app.translator.trans('Schemes') }}</th>
+        <th style="border:1px solid black;padding:5px;">{{ app.translator.trans('Active at') }}</th>
+        <th style="border:1px solid black;padding:5px;">{{ app.translator.trans('User') }}</th>
+        <th style="border:1px solid black;padding:5px;">{{ app.translator.trans('Call counter') }}</th>
+    </tr>
+    {% for idx,route in routes %}
+        <tr>
+            <td style="border:1px solid black;padding:5px;">{{ idx + 1 }}</td>
+            <td style="border:1px solid black;padding:5px;">{{ route.name }}</td>
+            <td style="border:1px solid black;padding:5px;">{{ route.path }}</td>
+            <td style="border:1px solid black;padding:5px;">{{ route.methods }}</td>
+            <td style="border:1px solid black;padding:5px;">{{ route.defaults }}</td>
+            <td style="border:1px solid black;padding:5px;">{{ route.requirements }}</td>
+            <td style="border:1px solid black;padding:5px;">{{ route.schemes }}</td>
+            <td style="border:1px solid black;padding:5px;">
+                {% if route.activeAt is defined %}
+                    {{ route.activeAt }}
+                {% else %}
+                    -
+                {% endif %}                
+            </td>
+            <td style="border:1px solid black;padding:5px;">
+                {% if route.userid is defined %}
+                    <a href="{{ path('user-edit', {userId: route.userid }) }}">{{ route.username }}</a></td>
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+            <td style="border:1px solid black;padding:5px;">{{ route.counter }}</td>
+    {% endfor %}
+</table>
+{% endspaceless %}

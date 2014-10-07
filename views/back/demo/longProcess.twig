@@ -1,0 +1,43 @@
+{% spaceless %}
+{% extends "back/subLayout.twig" %}
+
+{% block subBody %}
+    <div id="progressbar" style="position: relative;">
+        <div class="progresslabel" style="position: absolute;left: 50%;top: 4px;font-weight: bold;text-shadow: 1px 1px 0 #fff;">Loading...</div>
+    </div>
+{% endblock %}
+
+{% block footBody %}
+   {{ parent() }}
+   <script>
+        "use strict";
+
+        function pbUpdate(data)
+        {
+            $( "#progressbar" ).progressbar("value", data.percent);
+        }
+
+        function pbFinish()
+        {
+            $( "#progressbar" ).progressbar("value", 100);
+        }
+
+        require(["jquery-ui"], function (Jq) {
+            Jq( "#progressbar" ).progressbar({
+                value: false,
+                change: function() {
+                    Jq( ".progresslabel" ).text( Jq( "#progressbar" ).progressbar( "value" ) + "%" );
+                },
+                complete: function() {
+                    Jq( ".progresslabel" ).text( "Complete!" );
+                }
+            });
+
+            Jq('<iframe></iframe>')
+                .css({ position: "absolute", left: "-100px", top: "-100px", width: "1px", height: "1px" })
+                .attr('src', '{{ path('pipo-long_process_call') }}')
+                .appendTo( Jq("body"));
+        });
+   </script>
+{% endblock %}
+{% endspaceless %}

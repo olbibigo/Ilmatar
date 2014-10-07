@@ -1,0 +1,24 @@
+{% spaceless %}
+{% extends "common/layout.twig" %}
+
+{% block footHeader %}
+    <link href="/common/assets/font-awesome/css/font-awesome.4.1.0.{{ app.debug ? '' : 'min.' }}css" media="screen" rel="stylesheet"/>
+    <link href="/assets/subLayout.css" media="screen" rel="stylesheet"/>
+{% endblock %}
+
+{% block body %}
+    <div id="topBanner">
+        <div id="companyLogo">
+            <img alt="logo" src="/img/logo.png" title="{{appName}}" />
+        </div>
+        <div id="userInfo"></div>
+        <div id="menus"></div>
+    </div>
+    <div id="body">
+        <div id="subBody" class="ui-state-error">
+            <i class="fa fa-umbrella fa-2x"></i>&nbsp;<b>{{ code }}</b> : {{ message }}
+        </div>
+    </div>
+    {{ render(path('internal_footer')) }}
+{% endblock %}
+{% endspaceless %}

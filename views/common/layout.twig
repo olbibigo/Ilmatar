@@ -1,0 +1,54 @@
+{% spaceless %}
+<!DOCTYPE html>
+<html lang="{{ app['locale.html'] }}">
+<head>
+    <meta charset="{{ charset|default('UTF-8') }}">
+    <title>{{ appName ~ ' - ' ~ title|default('') }}</title>
+    <link rel="icon" type="img/png" href="/common/img/favicon.png" />
+    <!-- CSS -->
+    <link href="/common/assets/normalize/normalize.3.0.1.{{ app.debug ? '' : 'min.' }}css" media="screen" rel="stylesheet"/>
+    <link href="/common/assets/layout.css" media="screen" rel="stylesheet"/>
+    {% if styles is defined %}
+        {% for style in styles %}
+            <link href="{{ style }}" media="screen" rel="stylesheet"/>
+        {% endfor %}
+    {% endif %}
+    <!-- JS -->
+    <script>
+        var lang = "{{ app['locale.js'] }}";
+    </script>
+    <script src="/common/assets/require.2.1.9{{ app.debug ? '.' : '.min.' }}js"></script>
+    <script src="/common/assets/require.config{{ app.debug ? '.dev.' : '.prod.' }}js"></script>
+    <script src="/common/assets/translations.js"></script>
+    {% if app.request.locale != 'en' %}
+        <script src="{{ path('translations') }}?lg={{ app.request.locale }}&amp;cb=bootstrapTrans"></script>
+    {% endif %}
+    {% if javascripts is defined %}
+        {% for javascript,isInHeader in javascripts %}
+            {% if isInHeader == true %}
+            <script src="{{ javascript }}{{ app.debug ? '.' : 'min.' }}.js"></script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% if metas is defined %}
+        {% for meta in metas %}
+            <meta {% for key,value in meta %}{{ key }}="{{ value }}" {% endfor %}/>
+        {% endfor %}
+    {% endif %}
+    {% block footHeader %}<!-- EMPTY -->{% endblock %}
+</head>
+<body>
+    {% include '/common/flashbags.twig' %}
+    {% block body %}<!-- EMPTY -->{% endblock %}
+    <script src="/common/assets/layout.js"></script>
+    {% if javascripts is defined %}
+        {% for javascript,isInHeader in javascripts %}
+            {% if isInHeader == false %}
+            <script src="{{ javascript }}{{ app.debug ? '.' : 'min.' }}.js"></script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% block footBody %}<!-- EMPTY -->{% endblock %}
+</body>
+</html>
+{% endspaceless %}

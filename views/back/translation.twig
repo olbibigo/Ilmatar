@@ -1,0 +1,23 @@
+{% spaceless %}
+{% extends "back/subLayout.twig" %}
+
+{% block footHeader %}
+   {{ parent() }}
+    <link href="/common/assets/jqgrid/css/ui.jqgrid.css" media="screen" rel="stylesheet"/>
+{% endblock %} 
+
+{% block subBody %}
+    <div id="tabs">
+        <ul>
+            {% for idx,transName in transNames %}
+                <li><a href="{{ path('translation-load', {locale : transName}) }}">{{ transName }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block footBody %}
+   {{ parent() }}
+   <script src="/common/assets/tabEditableGrid.js"></script>
+{% endblock %}
+{% endspaceless %}

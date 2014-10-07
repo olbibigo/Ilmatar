@@ -1,0 +1,25 @@
+Entities\Functionality:
+  type: entity
+  repositoryClass: Repositories\Functionality
+  table: functionality
+  indexes:
+    code_idx:
+      columns: [ code ]
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    code:
+      type: string(32)
+      notnull: true
+      notblank: true
+      unique: true
+    is_editable:
+      type: boolean
+      notnull: true
+  oneToMany:
+    permissions:
+      targetEntity: Entities\Permission
+      mappedBy: functionality

@@ -1,0 +1,13 @@
+{% spaceless %}
+    {% include "back/tabGrid.twig" %}
+
+    {% include "back/subMyDocuments.twig" %}
+
+    <script>
+        var downloadUrl = '{{ path('mydocument-user-download') }}';
+        var deleteUrl   = '{{ path('mydocument-user-delete') }}';
+        var progressUrl = '{{ path('download-progress') }}';
+    </script>
+    <script src="/assets/mydocument.js"></script>
+    <script src="/assets/mydocumentversion.js"></script>
+{% endspaceless %}

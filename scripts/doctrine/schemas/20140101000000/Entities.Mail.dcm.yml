@@ -1,0 +1,37 @@
+Entities\Mail:
+  type: entity
+  repositoryClass: Repositories\Mail
+  table: mail
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    object:
+      type: string(256)
+      notnull: true
+      notblank: true
+    body:
+      type: text
+      notnull: true
+      notblank: true
+    recipient:
+      type: string(256)
+      notnull: true
+      notblank: true
+    is_error:
+      type: boolean
+    attempt_count:
+      type: integer
+    sent_at:
+      type: datetime
+      nullable: true
+    created_at:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+  lifecycleCallbacks:
+    prePersist: [ assertValidMail ]
+    preUpdate: [ assertValidMail ]

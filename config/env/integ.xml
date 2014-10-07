@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <env>integ</env>
+    <app.var>/var/www/Ilmatar/var</app.var>
+    <debug>true</debug>
+    <offline>false</offline>
+    <profiling>false</profiling> <!--works only if debug=true above -->
+    
+    <swiftmailer-options>
+        <type>smtp</type>
+        <host>smtp.castelis.local</host>
+        <port>25</port>
+        <username></username>
+        <password></password>
+        <encryption>null</encryption>
+        <auth_mode>null</auth_mode>
+    </swiftmailer-options>
+    
+    <dbDriver>pdo_mysql</dbDriver>
+    <dbName>ilmatar</dbName>
+    <dbUser>root</dbUser>
+    <dbPassword>root</dbPassword>
+    <dbCharset>utf8</dbCharset>
+    <dbHost>localhost</dbHost>
+
+    <dbDriver-test>pdo_mysql</dbDriver-test>
+    <dbName-test>ilmatar_test</dbName-test>
+    <dbUser-test>root</dbUser-test>
+    <dbPassword-test>root</dbPassword-test>
+    <dbCharset-test>utf8</dbCharset-test>
+    <dbHost-test>localhost</dbHost-test>
+</configuration>

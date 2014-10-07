@@ -1,0 +1,27 @@
+Entities\UserSetting:
+  type: entity
+  repositoryClass: Repositories\UserSetting
+  table: user_setting
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    code:
+      type: string(32)
+      notnull: true
+      notblank: true
+    value:
+      type: string
+  lifecycleCallbacks:
+    prePersist: [ assertValidUserSetting ]
+    preUpdate: [ assertValidUserSetting ]
+  manyToOne:
+    user:
+      targetEntity: Entities\User
+      inversedBy: settings
+      name: user_id
+      referencedColumnName: id
+      joinColumn:
+        nullable: false

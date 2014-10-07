@@ -1,0 +1,28 @@
+{% spaceless %}
+<table>
+    <tr>
+        <th>{{tablabel["name"]}}</th>
+    {% for field in form["requiredField"]["value"]|keys %}
+        <td><b> {{field}} </b></td>
+    {% endfor %}
+    </tr><tr>
+    <th>{{tablabel["type"]}}</th>
+    {% for key, field in form["requiredField"]["value"] %}
+        <td> {{field.type}} 
+            {% if field.length is defined %}
+                ({{field.length}})
+            {% endif %}                    
+        </td>
+    {% endfor %}
+    </tr><tr>                
+    <th>{{tablabel["is_required"]}}</th>
+    {% for key, field in form["requiredField"]["value"] %}
+        <td>
+        {% if field.nullable is not defined or field.nullable == false %}
+            X
+        {% endif %}
+        </td>
+    {% endfor %}
+    </tr>
+</table>
+{% endspaceless %}

@@ -1,0 +1,36 @@
+{% spaceless %}
+{% if buttons is defined %}
+    <div class="buttonContainer">
+        {% for idx,attributes in buttons %}
+            {% set action = "" %}
+            {% if attributes.url is defined %}
+                <a href="{{ attributes.url }}">
+            {% elseif attributes.action is defined %}
+                {% set action = "btnAction\" data-action-type=\"" ~ attributes.action.type ~ "\" data-action-data=\"" ~ attributes.action.data %}
+            {% endif %}
+                <div {% if attributes.id is defined %} id={{ attributes.id }} {% endif %} title="{{ attributes.title|default('') }}" class="ui-widget ui-widget-content ui-corner-all button {{ action|raw }}"><i class="fa fa-lg 
+                {% if attributes.type == constant('\\Project\\Controller\\BaseBackController::BUTTON_TYPE_ADD') %}
+                    fa-plus-circle
+                {% elseif attributes.type == constant('\\Project\\Controller\\BaseBackController::BUTTON_TYPE_EDIT') %}
+                    fa-edit
+                {% elseif attributes.type == constant('\\Project\\Controller\\BaseBackController::BUTTON_TYPE_DELETE') %}
+                    fa-cut
+                {% elseif attributes.type == constant('\\Project\\Controller\\BaseBackController::BUTTON_TYPE_SAVE') %}
+                    fa-save
+                {% elseif attributes.type == constant('\\Project\\Controller\\BaseBackController::BUTTON_TYPE_LIST') %}
+                    fa-list-alt
+                {% elseif attributes.type == constant('\\Project\\Controller\\BaseBackController::BUTTON_TYPE_EXPORT') %}
+                    fa-cog
+                {% elseif attributes.type == constant('\\Project\\Controller\\BaseBackController::BUTTON_TYPE_EXECUTE') %}
+                    fa-send
+                {% elseif attributes.type == constant('\\Project\\Controller\\BaseBackController::BUTTON_TYPE_DOWNLOAD') %}
+                    fa-download
+                {% endif %}
+                "></i>&nbsp;{{ app.translator.trans(attributes.label) }}</div>
+            {% if attributes.url is defined %}
+                </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
+{% endspaceless %}

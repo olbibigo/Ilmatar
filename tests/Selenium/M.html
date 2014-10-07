@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://b.ilmatar.localhost/" />
+<title>barcode</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">barcode</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_username</td>
+	<td>${adminUsername}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=_password</td>
+	<td>${adminPassword}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=buttonLogin</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Barcode</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertXpathCount</td>
+	<td>//div[@id='subBody']/div/img</td>
+	<td>9</td>
+</tr>
+<tr>
+	<td>assertElementWidth</td>
+	<td>css=div &gt; img</td>
+	<td>439</td>
+</tr>
+<tr>
+	<td>assertElementHeight</td>
+	<td>css=div &gt; img</td>
+	<td>65</td>
+</tr>
+<tr>
+	<td>assertElementWidth</td>
+	<td>//img[contains(@src,'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXQAAACoAQMAAADKJofwAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAiNJREFUWIXt2DGu4yAYBGAiCkrfwL4IEteyKyzlHs5V7BNwBTq3SG4SCfHvDG+1zUN7gBi6OF+cZvQzoFRf/11apCzn6vN1SBqsvF15ZOVtUlZ2U2Yjn/MlUSTj27H77tte5AOfBeuTR+/K7PAEX/FJy2+zgdcha3iFN7sX/APeJt/97fxLTvgpMD9IDoJXs0TfyM9yPiUqPjFywOcJPkT4KygR1f29PPMjV0B+4DmLXvRn9YhRbuTT0+tgkMnykE1ZvZvrbeCf3d/PS83PJZxRZeH8YaKE+1fLczdcB5V8Hh9nwmb3dvjH1fO3q/+dz+6/2zM/pXrMHJYfYX6SZ34K3tbIZ6aflXxiUcB2euPnRoIrqvvb+Rfzk9MSWZuZHzuhEcGLa+1feJuDV0ucPuhaDv1chzPVonV1fzvPzlwGDBxBzcZKA/oPPpqCfbDlkTQ1oHLLumRK+B3N3GDKtfp599/t5cIxbTiLr+cvdiGOnR/fPL9fB7zCSR/9fJKog9US02C2IU7d389j/mwDdj1X84Njl+XYCfC54etYW+kNPF6L+cbro91svG76fR7s/qu9zz8eyeHlT8Ag4vYnB/t2avXz6Y1+jrCd6QEfx38ee2X3d/QoPLxz5v1PwMCpXupZvnFfZPVOz2uiI44DvC0K/fxEPru/n8+aY+ev5y00j12O5/ejdX+IcsV+ZdZZ6SPiv568L3JpNteOyt19921/s/UHsNdQ60dzMtgAAAAASUVORK5CYII=')]</td>
+	<td>372</td>
+</tr>
+<tr>
+	<td>assertElementHeight</td>
+	<td>//img[contains(@src,'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXQAAACoAQMAAADKJofwAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAiNJREFUWIXt2DGu4yAYBGAiCkrfwL4IEteyKyzlHs5V7BNwBTq3SG4SCfHvDG+1zUN7gBi6OF+cZvQzoFRf/11apCzn6vN1SBqsvF15ZOVtUlZ2U2Yjn/MlUSTj27H77tte5AOfBeuTR+/K7PAEX/FJy2+zgdcha3iFN7sX/APeJt/97fxLTvgpMD9IDoJXs0TfyM9yPiUqPjFywOcJPkT4KygR1f29PPMjV0B+4DmLXvRn9YhRbuTT0+tgkMnykE1ZvZvrbeCf3d/PS83PJZxRZeH8YaKE+1fLczdcB5V8Hh9nwmb3dvjH1fO3q/+dz+6/2zM/pXrMHJYfYX6SZ34K3tbIZ6aflXxiUcB2euPnRoIrqvvb+Rfzk9MSWZuZHzuhEcGLa+1feJuDV0ucPuhaDv1chzPVonV1fzvPzlwGDBxBzcZKA/oPPpqCfbDlkTQ1oHLLumRK+B3N3GDKtfp599/t5cIxbTiLr+cvdiGOnR/fPL9fB7zCSR/9fJKog9US02C2IU7d389j/mwDdj1X84Njl+XYCfC54etYW+kNPF6L+cbro91svG76fR7s/qu9zz8eyeHlT8Ag4vYnB/t2avXz6Y1+jrCd6QEfx38ee2X3d/QoPLxz5v1PwMCpXupZvnFfZPVOz2uiI44DvC0K/fxEPru/n8+aY+ev5y00j12O5/ejdX+IcsV+ZdZZ6SPiv568L3JpNteOyt19921/s/UHsNdQ60dzMtgAAAAASUVORK5CYII=')]</td>
+	<td>168</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[@id='logout']/i</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{% spaceless %}
+{% extends "back/listView.twig" %}
+
+{% block page %}
+    <!-- Document upload form -->
+    <div id="uploadFormContainer" title="{{ app.translator.trans('Add a document') }}" class="hide">
+        <p id="validateTips"></p>
+        <form action="{{ app.url_generator.generate("pipo-document-upload") }}" method="post" id="uploadForm" {{ form_enctype(uploadForm) }}>
+            {{ form_widget(uploadForm) }}
+        </form>
+    </div>
+{% endblock %}
+
+{% block footBody %}
+   {{ parent() }}
+   <script>
+        /*global _, require*/
+        "use strict";
+
+        //Manages button action
+        require(["jquery-ui"], function(Jq) {
+            Jq("#uploadFormContainer").dialog({
+                autoOpen : false,
+                width : 500,
+                modal : true,
+                draggable : false,
+                resizable : false,
+                buttons : [
+                    {
+                        text : _('Send'),
+                        click : function () {
+                            if (Jq('#form_path').val().length > 0) {
+                                Jq('#uploadForm').submit();
+                            } else {
+                                Jq('#validateTips').text(_('A file is expected.')).addClass("ui-state-error");
+                            }
+                        }
+                    }
+                ]
+            });
+        });
+   </script>
+{% endblock %}
+{% endspaceless %}

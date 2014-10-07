@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <common>true</common>
+    <client.name>Castelis</client.name>
+    <app.name>Ilmatar</app.name>
+    <app.version>1.0</app.version>
+    <app.languages type="collection">
+        <language><!-- first : Default -->
+            <name>Français</name>
+            <code>fr</code>
+            <code.html>fr</code.html>
+            <code.js>fr</code.js>
+        </language>
+        <language>
+            <name>English</name>
+            <code>en</code>
+            <code.html>en</code.html>
+            <code.js>en</code.js>
+        </language>
+    </app.languages>
+    <!-- Compte Recaptcha ilmatarCastelis@gmail.com -->
+    <recaptcha.public-key>6LeNte0SAAAAANSnhwVxKxCzj0anU4gG1IqNIAwz</recaptcha.public-key>
+    <recaptcha.private-key>6LeNte0SAAAAAHRwt7gVVB_PDkgU3w7-gOspR7AH</recaptcha.private-key>
+    <monolog.channels type="collection">
+        <!-- Default channel $app['monolog'] is equivalent to $app['monolog.main'] -->
+        <value>main</value>
+        <value>console</value>
+        <value>mailer</value>
+        <value>import</value>
+        <!-- Add other loggers here -->
+    </monolog.channels>
+    <app.tags.strategies>
+        <app.tags.strategy>
+            <key>%%user_name%%</key>
+            <value>\Project\Tag\UserName</value>
+        </app.tags.strategy>
+        <app.tags.strategy>
+            <key>%%user_password%%</key>
+            <value>\Project\Tag\UserPassword</value>
+        </app.tags.strategy>    
+    </app.tags.strategies>
+    <app.mail.sender>no-reply@ilmatar.com</app.mail.sender>
+    <session.lifetime>3600</session.lifetime>
+    <session.idletime>900</session.idletime>
+    <!--See also in php.ini upload_max_filesize, max_file_uploads, post_max_size -->
+    <upload.size.max>1M</upload.size.max>
+    <upload.file.max>5</upload.file.max>
+</configuration>

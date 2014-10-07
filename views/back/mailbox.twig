@@ -1,0 +1,101 @@
+{% spaceless %}
+{% set icon = 'fa-envelope' %}
+{% extends "back/subLayout.twig" %}
+
+{% block footHeader %}
+   {{ parent() }}
+    <style>
+        #sendButton{
+            margin-top: 10px;
+            margin-left: 210px;
+            float: none;
+            display: inline;
+        }
+    </style>
+{% endblock %}
+
+{% block subBody %}
+    <div id="tabs">
+        <ul>
+        <li><a href="#tabReceived">{{ app.translator.trans('Received') }}</a></li>
+        <li><a href="#tabSent">{{ app.translator.trans('Sent') }}</a></li>
+        {% if isAllowedToCompose == true %}
+            <li><a href="#tabsCompose">{{ app.translator.trans('Compose') }}</a></li>
+        {% endif %}
+        </ul>
+        <div id="tabReceived">
+            {% if receivedMessages is empty %}
+                <p>{{ app.translator.trans('You do not have messages.') }}</p>
+            {% else %}
+                <div class="accordion">
+                {% for message in receivedMessages %}
+                    <h3>
+                        {% if message.getReadAt() is null %}
+                            <i class="fa fa-flag unread red" title="{{ app.translator.trans('Unread mail') }}"></i>
+                        {% endif %}
+                        {{ message.getCreatedAt().format(constant('\\Ilmatar\\JqGrid::DATETIME_DISPLAY_FORMAT')) }} 
+                        <b>{{ message.from.fullName }}</b>
+                        : {{ message.getSubject() }}</h3>
+                    
+                    <div>
+                        <input type="hidden" name="{{ random(1000000) }}" value="{{ message.getId() }}" />
+                        <input type="hidden" name="{{ random(1000000) }}" value="{{ message.getReadAt() is null }}" />
+                        {{ message.getBody()|raw }}
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div id="tabSent">
+            {% if sentMessages is empty %}
+                <p>{{ app.translator.trans('You do not have messages.') }}</p>
+            {% else %}
+                <div class="accordion">
+                {% for message in sentMessages %}
+                    <h3>
+                        {{ message.getCreatedAt().format(constant('\\Ilmatar\\JqGrid::DATETIME_DISPLAY_FORMAT')) }}
+                        <b>{{ message.to.fullName }}</b>
+                        : {{ message.getSubject() }}
+                        {% if message.getReadAt() is not null %}
+                            <span style="margin-left:25px">&nbsp;</span>
+                            {{ app.translator.trans('Read at %read_at%', {'%read_at%': message.getReadAt().format(constant('\\Ilmatar\\JqGrid::DATETIME_DISPLAY_FORMAT')) })}}
+                        {% endif %}
+                    </h3>
+                    <div>{{ message.getBody()|raw }}</div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        {% if isAllowedToCompose == true %}
+        <div id="tabsCompose">
+            {{ form_start(composeMailForm, {'attr': {'id': 'composeMailForm'}}) }}
+            {% if composeMailForm.tos.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(composeMailForm.tos) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(composeMailForm.tos) }}{{ form_widget(composeMailForm.tos, { 'attr': {'class': 'ui-widget-content autocomplete', 'data-autocompletion-url': path('user-autocomplete')} }) }}<span style="margin-left:15px">{{ app.translator.trans('(Use <i>,</i> as separator.)')|raw }}</span></div>    
+            {% if composeMailForm.subject.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(composeMailForm.subject) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(composeMailForm.subject) }}{{ form_widget(composeMailForm.subject, { 'attr': {'class': 'ui-widget-content'} })  }}</div>          
+            {% if composeMailForm.body.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(composeMailForm.body) }}</div>
+            {% endif %}
+            <div class="field tinymce">{{ form_label(composeMailForm.body) }}<p>{{ form_widget(composeMailForm.body, {'attr': {'class': 'editmce'}}) }}</p></div>
+            <div class="field"><label for="buttonSend">&nbsp;</label><button id="buttonSend" name="buttonSend" type="submit">{{ app.translator.trans('Send') }}</button></div>
+            
+            {{ form_end(composeMailForm) }}
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block footBody %}
+   {{ parent() }}
+    <script>
+        "use strict";   
+        var changeReadStatusUrl = "{{ changeReadStatusUrl }}";
+        var tabIndex            = {{ tabIndex }};
+    </script>
+   <script src="/assets/mailbox.js"></script>
+{% endblock %}
+{% endspaceless %} 

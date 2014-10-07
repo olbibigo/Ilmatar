@@ -1,0 +1,71 @@
+{% spaceless %}
+{% extends "back/subLayout.twig" %}
+
+{% block subBody %}
+    <div id="hpbody">
+        {% if isBanished == false %}
+            <div id="content" class="ui-widget ui-widget-content ui-corner-all ui-front">
+                <div class="title">{{ app['client.name'] }} - {{ app['app.name'] }}</div>
+                <form action="{{ path(app.translator.trans('admin_login_check', [], 'routes')) }}" method="post" id="loginForm" autocomplete="off">
+                    {% if error is defined and error is not empty %}
+                        <div class='flash flash-error'>{{ app.translator.trans(error) }}</div>
+                    {% endif %}
+                    <p>
+                        <label for="_username"><i class="fa fa-user fa-lg"></i>&nbsp;{{ app.translator.trans('User') }}&nbsp;:</label>
+                        <input class="ui-widget-content" autocomplete="off" type="text" id="_username" name="_username" value="{{ last_username }}" title="" />
+                    </p>
+                    <p>
+                        <label for="_password"><i class="fa fa-key fa-lg"></i>&nbsp;{{ app.translator.trans('Password') }}&nbsp;:</label>
+                        <input class="ui-widget-content" autocomplete="off" type="password" id="_password" name="_password" value="" title="" />
+                    </p>
+                    <p>
+                        <label for="remember_me">&nbsp;{{ app.translator.trans('Remember me') }}&nbsp;:</label>
+                        <input class="ui-widget-content" type="checkbox" id="remember_me" name="_remember_me" checked />
+        
+                    </p>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <div id="loginButtonContainer"><button id="buttonLogin">{{ app.translator.trans('Validate') }}</button></div>
+                </form>
+            </div>
+            {% if error is defined and error is not empty %}
+                <div class="center"><a href="javascript:" id="forgottenPassword">{{ app.translator.trans('Forgotten password?') }}</a></div>
+            {% endif %}
+        {% endif %}
+    </div>
+    <!-- Forgotten password form -->
+    {% if isBanished == false %}
+        <div id="forgottenPasswordForm" title="{{ app.translator.trans('Forgotten password?') }}" class="hide">
+            <p>{{ app.translator.trans('A new password will be sent to your account email.') }}</p>
+            <p id="validateTips"></p>
+            <p>
+                <label for="_email"><i class="fa fa-envelope fa-lg"></i>&nbsp;{{ app.translator.trans('Email') }}&nbsp;:</label>
+                <input type="text" id="_email" name="_email" value="" title="" class="ui-widget-content ui-corner-all"/>
+            </p>
+            {% if app.recaptcha is not null %}
+            <p>
+                <label><i class="fa fa-shield fa-lg"></i>&nbsp;{{ app.translator.trans('Captcha') }}&nbsp;:</label>
+                <!-- Appends recaptcha -->
+                <script>
+                    var RecaptchaOptions = {
+                        theme : 'white',
+                        lang : '{{ app.request.locale }}'
+                    };
+                </script>
+                <script src="https://www.google.com/recaptcha/api/challenge?k={{ recaptcha.getPublicKey() }}"></script>
+            </p>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block footBody %}
+   {{ parent() }}
+    <script>
+        "use strict";
+        var forgottenActionUrl = "{{ forgottenActionUrl }}";
+    </script>
+    {% if isBanished == false %}
+       <script src="/assets/homepage.js"></script>
+    {% endif %}
+{% endblock %}
+{% endspaceless %}

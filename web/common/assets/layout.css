@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+*:before, *:after {
+    box-sizing: border-box;
+}
+html, body {
+    font: 9pt Arial;
+}
+input, select {
+    border-radius: 5px;
+}
+img {
+    border: medium none;
+}
+.hide{
+   display:none;
+}
+.show{
+   display:inline;
+}
+.errorMsg{
+    color: #f00;
+}
+.flash{
+    display: none;
+}
+.center{
+    text-align: center
+}
+.clearfix {
+    clear: both;
+}
+.ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
+.ui-autocomplete-loading {
+   background: white url('/common/img/loading.gif') right center no-repeat;
+}

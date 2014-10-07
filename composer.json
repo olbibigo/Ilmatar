@@ -1,0 +1,76 @@
+{
+    "name": "castelis/ilmatar",
+    "type": "framework",
+    "description": "A framework and an application shell made by CASTELIS to change the world :)",
+    "keywords": ["framework"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Castelis",
+            "email": "contact@castelis.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "silex/silex": "1.*",
+        "twig/twig": "1.*",
+        "symfony/config": "2.*",
+        "symfony/yaml": "2.*",
+        "phing/phing": "2.*",
+        "doctrine/orm": "2.*",
+        "symfony/doctrine-bridge": "2.*",
+        "dflydev/doctrine-orm-service-provider": "1.*",
+        "monolog/monolog": "1.x",
+        "symfony/monolog-bridge": "2.*",
+        "symfony/twig-bridge": "2.*",
+        "swiftmailer/swiftmailer": "4.*",
+        "symfony/security": "2.*",
+        "symfony/form": "2.*",
+        "symfony/translation": "2.*",
+        "symfony/validator": "2.*",
+        "symfony/intl": "2.*",
+        "knplabs/console-service-provider" : "dev-master",
+        "knplabs/knp-snappy": "0.*",
+        "h4cc/wkhtmltopdf-amd64": "0.11.0-RC1",
+        "h4cc/wkhtmltoimage-amd64": "0.11.0-RC1",
+        "nesbot/carbon": "1.*",
+        "knplabs/knp-menu": "1.*",
+        "guzzle/guzzle": "3.*",
+        "neutron/recaptcha": "0.*",
+        "gedmo/doctrine-extensions": "2.*",
+        "wisembly/excelant": "1.*",
+        "rlerdorf/opcache-status": "dev-master",
+        "bt51/gaufrette-serviceprovider": "1.*",
+        "hellogerard/jobby": "2.*",
+        "zendframework/zend-servicemanager": "2.3.*",
+        "zendframework/zend-validator": "2.3.*",
+        "zendframework/zend-barcode": "2.3.*",
+        "zendframework/zend-text": "2.3.*",
+        "zendframework/zend-json": "2.3.*",
+        "zendframework/zend-progressbar": "2.3.*",
+        "dinesh/barcode": "3.*",
+        "phpoffice/phpword": "0.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "squizlabs/php_codesniffer": "1.*",
+        "phpmd/phpmd": "*",
+        "sebastian/phpcpd": "*",
+        "phploc/phploc": "*",
+        "covex-nn/phpcb": "dev-master",
+        "doctrine/data-fixtures": "1.*",
+        "silex/web-profiler": "1.*",
+        "symfony/web-profiler-bundle" : ">=2.2,<2.4-dev",
+        "filp/whoops": "1.*",
+        "halleck45/php-metrics": "0.0.6"
+    },
+    "autoload": {
+        "psr-0": {
+            "Entities": "src",
+            "Repositories": "src",
+            "Project": "src",
+            "Ilmatar": "src",
+            "Project\\Fixtures" : "scripts/doctrine/fixtures"
+        }
+    }
+}

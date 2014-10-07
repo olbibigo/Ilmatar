@@ -1,0 +1,26 @@
+{% spaceless %}
+<div id="exportGridForm" title="{{ app.translator.trans('Export options') }}" class="hide">
+    
+    <p class="bold">{{ app.translator.trans('Export perimeter') }}</p>
+    {% for item in exportPerimeter %}
+        <span class="radio"><input type="radio" name="exportPerimeter" value="{{ item }}" {% if loop.first %}checked{% endif %}>{{ app.translator.trans(item) }}</span>
+    {% endfor %}
+    
+    <p class="bold">{{ app.translator.trans('Export format') }}</p>
+    {% for item in exportFormat %}
+        <span class="radio"><input type="radio" name="exportFormat" value="{{ item }}" {% if loop.first %}checked{% endif %}>{{ item }}</span>
+    {% endfor %}
+    <p class="bold">{{ app.translator.trans('Number and date format') }}</p>
+    {% for item in exportNumberDateFormat %}
+        <span class="radio"><input type="radio" name="exportNumberDateFormat" value="{{ item }}" {% if loop.first %}checked{% endif %}>{{ app.translator.trans(item) }}</span>
+    {% endfor %}
+    
+    {# @note: the .pageOrientation div is used for the control of activate/hide this block according to the value of export format #}
+    <div class="pageOrientation hide">
+        <p class="bold">{{ app.translator.trans('Page orientation (PDF)') }}</p>
+        {% for item in exportOrientation %}
+            <span class="radio"><input type="radio" name="exportOrientation" value="{{ item }}" {% if loop.first %}checked{% endif %}>{{ app.translator.trans(item) }}</span>
+        {% endfor %}
+    </div>
+</div>
+{% endspaceless %}

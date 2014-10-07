@@ -1,0 +1,38 @@
+{% spaceless %}
+{% set icon = 'fa-pencil' %}
+{% extends "back/subLayout.twig" %}
+
+{% block subBody %}
+        {{ form_start(importForm) }}
+            {% if importForm.entities.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(importForm.entities) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(importForm.entities) }}{{ form_widget(importForm.entities, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+            {% if importForm.mode.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(importForm.mode) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(importForm.mode) }}{{ form_widget(importForm.mode) }}</div>
+            <div class="field"><label>{{form["requiredField"]["label"]}}</label><div id='entityField'></div></div>
+            {% if importForm.path.vars.errors|length > 0 %}
+                <div class="ui-state-error">{{ form_errors(importForm.path) }}</div>
+            {% endif %}
+            <div class="field">{{ form_label(importForm.path) }}{{ form_widget(importForm.path, { 'attr': {'class': 'ui-widget-content'} }) }}</div>
+
+            <div class="field">
+                <label for="buttonNext">&nbsp;</label>
+                <button id="buttonNext" name="buttonNext" type="submit">{{ buttonlabel["next"] }}</button>
+            </div>
+        {{ form_end(importForm) }}
+{% endblock %}
+
+
+{% block footBody %}
+   {{ parent() }}
+    <script>
+        "use strict";   
+        var loadEntityUrl = "{{ loadEntityUrl }}";
+        var tablabel      = {{tablabel|json_encode()|raw}};
+    </script>
+    <script src="/assets/import-step1.js"></script>
+{% endblock %}
+{% endspaceless %} 

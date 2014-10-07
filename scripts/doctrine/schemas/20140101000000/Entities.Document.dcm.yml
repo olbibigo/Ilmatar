@@ -1,0 +1,52 @@
+Entities\Document:
+  type: entity
+  repositoryClass: Repositories\Document
+  table: document
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      length: 128
+      unique: true
+    mime:
+      type: string
+      length: 1024
+    created_at:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updated_at:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+    created_by:
+      type: string
+      gedmo:
+        blameable:
+          on: create
+    updated_by:
+      type: string
+      gedmo:
+        blameable:
+          on: update
+  lifecycleCallbacks:
+    prePersist: [ assertValidDocument ]
+    preUpdate: [ assertValidDocument ]
+  oneToMany:
+    files:
+      targetEntity: Entities\DocumentFile
+      mappedBy: document
+  manyToOne:
+    creator:
+      targetEntity: Entities\User
+      inversedBy: documents
+      name: creator_id
+      referencedColumnName: id
+      joinColumn:
+        nullable: false

@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Ilmatar" basedir="." default="helper" phingVersion="2.6">
+    <property name="win-suffix" value="" />
+    <condition property="win-suffix" value=".bat">
+        <os family="windows" />
+    </condition>
+    <property name="project.config"  value="${project.basedir}/config" />
+    <property name="project.build"   value="${project.basedir}/build" />
+    <property name="project.log"     value="${project.build}/logs" />
+    <property name="project.vendor"  value="${project.basedir}/vendor" />
+    <property name="project.web"     value="${project.basedir}/web" />
+    <property name="project.scripts" value="${project.basedir}/scripts" />
+    <property name="env" value="dev" />
+    <property name="includeFixtures" value="0" />
+    <property name="includePatches" value="1" />
+    <property name="generateEntities" value="1" />
+    <property name="version" value="" />
+    <property name="patch" value="" />
+    <property name="test" value="" />
+    <property name="group" value="" />
+    <property name="isWindows" value="false" />
+
+    <condition property="isWindows" value="true">
+        <os family="windows" />
+    </condition>
+    
+    <patternset id="MyPhpFiles">
+        <include name="**/*.php" />
+        <include name="*.php" />
+        <exclude name="**/vendor/" />
+        <exclude name="**/scripts/" />
+        <exclude name="**/var/" />
+        <exclude name="**/build/" />
+    </patternset>
+
+    <patternset id="MyJsFiles">
+        <include name="**/web/back/assets/*.js" />
+        <include name="**/web/front/assets/*.js" />
+        <include name="**/web/common/assets/translations.js" />
+        <include name="**/web/common/assets/layout.js" />
+        <include name="**/web/common/assets/jqGridWrite.js" />
+        <include name="**/web/common/assets/jqGridRead.js" />
+        <include name="**/web/common/assets/export.js" />
+        <include name="**/web/common/assets/buttonByTab.js" />
+    </patternset>
+    
+    <patternset id="MyXmlFiles">
+        <include name="**/*.xml" />
+        <include name="*.xml" />
+        <exclude name="**/vendor/" />
+        <exclude name="**/scripts/" />
+        <exclude name="**/var/" />
+        <exclude name="**/build/" />
+    </patternset>
+
+    <!-- For continous integration server -->
+    <!-- jsllint is omitted because not supported on Linux -->
+    <target name="build" depends="prepare">
+        <phingcall target="phplint" />
+        <phingcall target="xmllint" />
+        <phingcall target="try_ParallelTasks" />
+        <phingcall target="phpunit" />
+        <phingcall target="phpcb" />
+    </target>
+
+    <!-- For call before commit -->
+    <!-- jsllint is omitted because not supported on Linux -->
+    <target name="lightbuild">
+        <phingcall target="phplint" />
+        <phingcall target="xmllint" />
+        <phingcall target="phpcs" />
+        <phingcall target="phpcpd" />
+        <phingcall target="phpunit" />
+    </target>
+
+    <target name="try_ParallelTasks" description="Run tasks. Checks for parallel support in PHP." hidden="true">
+            <exec command="php -m | grep pcntl" returnProperty="pcntl_enabled"/>
+            <if>
+                    <equals arg1="${pcntl_enabled}" arg2="pcntl" />
+                    <then>
+                            <echo message="PCNTL Enabled. Running Taks in parallel with ${threads} threads." />
+                            <phingcall target="run_parallel_tasks"/>
+                    </then>
+                    <else>
+                            <echo message="PCNTL is not enabled. Running task serially." />
+                            <phingcall target="run_serial_tasks"/>
+                    </else>
+            </if>
+    </target>
+
+    <target name="run_parallel_tasks" hidden="true">
+            <parallel threadCount="${threads}">
+                    <phingcall target="tasks_to_try" />
+            </parallel>
+    </target>
+    <target name="run_serial_tasks" hidden="true">
+            <phingcall target="tasks_to_try" />
+    </target>
+    <target name="tasks_to_try" hidden="true">
+        <phingcall target="metrics" />
+        <phingcall target="phploc" />
+        <phingcall target="phpcs-ci" />
+        <phingcall target="phpcpd" />
+        <phingcall target="phpmd" />
+        <phingcall target="pdepend" />
+    </target>
+
+    <target name="helper" description="Print this message">
+        <exec command="${project.vendor}/bin/phing${win-suffix} -l" passthru="true" />
+    </target>
+
+    <target name="clean" hidden="true">
+        <delete dir="${project.build}/code-browser"/>
+        <delete dir="${project.build}/coverage"/>
+        <delete dir="${project.build}/pdepend"/>
+        <delete dir="${project.log}"/>
+    </target>
+
+    <target name="prepare" depends="clean" hidden="true">
+        <exec command="composer update" logoutput="true" />
+        <mkdir dir="${project.build}" />
+        <mkdir dir="${project.build}/code-browser"/>
+        <mkdir dir="${project.build}/coverage"/>
+        <mkdir dir="${project.build}/pdepend"/>
+        <mkdir dir="${project.log}"/>
+        <chmod mode="0755">
+          <fileset dir="${project.basedir}/vendor">
+            <include name="**/bin/*"/>
+            <include name="**/scripts/*"/>
+          </fileset>
+        </chmod>
+    </target>
+
+    <target name="install" description="Install the application.">
+        <if>
+            <equals arg1="" arg2="${test}" />
+            <then>
+                <available file="${project.config}/env/${env}.xml" type="file" property="configExist" value="true" />
+                <fail msg="${project.config}/env/${env}.xml file does not exist" unless="configExist" />
+                <if>
+                    <equals arg1="${isWindows}" arg2="" />
+                    <then>
+                        <symlink target="${project.config}/env/${env}.xml" link="${project.config}/env.xml" overwrite="true"/>
+                        <symlink target="${project.web}/common" link="${project.web}/back/common" overwrite="true"/>
+                        <symlink target="${project.web}/common" link="${project.web}/front/common" overwrite="true"/>
+                    </then>
+                    <else>
+                        <input propertyName="confirmation" validArgs="Y, N">Do you want to overwrite env.xml, back\common, front\common and schemas\current ?</input>
+                        <if>
+                            <equals arg1="${confirmation}" arg2="Y" />
+                            <then>
+                                <delete file="${project.config}/env.xml" quiet="true" />
+                                <copy file="${project.config}/env/${env}.xml" tofile="${project.config}/env.xml" overwrite="true"/>
+                                <delete dir="${project.web}/back/common" quiet="true" />
+                                <copy todir="${project.web}/back/common" overwrite="true">
+                                    <fileset dir="${project.web}/common">
+                                        <include name="**"></include>
+                                    </fileset>
+                                </copy>
+                                <delete dir="${project.web}/front/common" quiet="true" />
+                                <copy todir="${project.web}/front/common" overwrite="true">
+                                    <fileset dir="${project.web}/common">
+                                        <include name="**"></include>
+                                    </fileset>
+                                </copy>
+                            </then>
+                        </if>
+                    </else>
+                </if>
+            </then>
+        </if>
+
+        <exec command="php ${project.basedir}/app/console dbal:get-version last --schemasPath=${project.scripts}/doctrine/schemas ${test}" outputProperty="version" />
+
+        <if>
+            <equals arg1="" arg2="${test}" />
+            <then>
+                <if>
+                    <equals arg1="${isWindows}" arg2="" />
+                    <then>
+                        <symlink target="${version}" link="${project.scripts}/doctrine/schemas/current" overwrite="true"/>
+                    </then>
+                    <else>
+                        <if>
+                            <equals arg1="${confirmation}" arg2="Y" />
+                            <then>
+                                <delete dir="${project.scripts}/doctrine/schemas/current" quiet="true" />
+                                <copy todir="${project.scripts}/doctrine/schemas/current" overwrite="true">
+                                    <fileset dir="${project.scripts}/doctrine/schemas/${version}">
+                                        <include name="**"></include>
+                                    </fileset>
+                                </copy>
+                            </then>
+                        </if>
+                    </else>
+                </if>
+            </then>
+        </if>
+
+        <phingcall target="generate-entities" />
+
+        <echo msg="Drop all tables" />
+        <exec command="${project.vendor}/bin/doctrine orm:schema-tool:drop --full-database --force ${test}" passthru="true" />
+
+        <phingcall target="migrate-to-version">
+            <property name="version" value="${version}" />
+            <property name="generateEntities" value="0" />
+        </phingcall>
+
+        <if>
+            <equals arg1="1" arg2="${includeFixtures}" />
+            <then>
+                <echo msg="Insert fixtures" />
+                <exec command="php ${project.basedir}/app/console orm:insert-fixtures ${project.scripts}/doctrine/fixtures ${test}" passthru="true" />
+            </then>
+        </if>
+    </target>
+
+    <target name="migrate" description="Migrate database. Options : includePatches, version.">
+        <if>
+            <equals arg1="" arg2="${version}" />
+            <then>
+                <exec command="php ${project.basedir}/app/console dbal:get-version next --schemasPath=${project.scripts}/doctrine/schemas ${test}" outputProperty="version" />
+            </then>
+        </if>
+
+        <if>
+            <equals arg1="" arg2="${version}" />
+            <then>
+                <echo msg="Database is already in the last available version" />
+            </then>
+            <else>
+                <foreach list="${version}" param="version" target="migrate-to-version" />
+            </else>
+        </if>
+    </target>
+
+    <target name="migrate-to-version" hidden="true">
+        <if>
+            <equals arg1="" arg2="${test}" />
+            <then>
+                <if>
+                    <equals arg1="${isWindows}" arg2="false" />
+                    <then>
+                        <delete file="${project.scripts}/doctrine/schemas/current" quiet="true" />
+                        <symlink target="${version}" link="${project.scripts}/doctrine/schemas/current" overwrite="true"/>
+                    </then>
+                    <else>
+                        <if>
+                            <equals arg1="${confirmation}" arg2="Y" />
+                            <then>
+                                <delete dir="${project.scripts}/doctrine/schemas/current" quiet="true" />
+                                <copy todir="${project.scripts}/doctrine/schemas/current" overwrite="true">
+                                    <fileset dir="${project.scripts}/doctrine/schemas/${version}">
+                                        <include name="**"></include>
+                                    </fileset>
+                                </copy>                        
+                            </then>
+                        </if>
+                    </else>
+                </if>
+                <if>
+                    <equals arg1="1" arg2="${generateEntities}" />
+                    <then>
+                        <phingcall target="generate-entities" />
+                    </then>
+                </if>
+            </then>
+        </if>
+
+        <echo msg="Update schema" />
+        <exec command="${project.vendor}/bin/doctrine orm:schema-tool:update --force ${test}" passthru="true" />
+
+        <echo msg="Update schema version" />
+        <if>
+            <equals arg1="" arg2="${test}" />
+            <then>
+                <exec command="php ${project.basedir}/app/console dbal:update-version ${version}" passthru="true" />
+            </then>
+            <else>
+                <exec command="php ${project.basedir}/app/console dbal:update-version 1970010300000000 ${test}" passthru="true" />
+            </else>
+        </if>
+
+        <if>
+            <equals arg1="1" arg2="${includePatches}" />
+            <then>
+                <phingcall target="patch">
+                    <property name="version" value="${version}" />
+                </phingcall>
+            </then>
+        </if>
+    </target>
+
+    <target name="generate-entities" hidden="true">
+        <echo msg="Generate doctrine entities" />
+        <exec command="${project.vendor}/bin/doctrine orm:generate-entities src ${test}" passthru="true" />
+
+        <echo msg="Generate doctrine repositories" />
+        <exec command="${project.vendor}/bin/doctrine orm:generate-repositories src ${test}" passthru="true" />
+
+        <echo msg="Generate doctrine proxies" />
+        <exec command="${project.vendor}/bin/doctrine orm:generate-proxies ${project.scripts}/doctrine/proxies ${test}" passthru="true" />
+    </target>
+
+
+    <target name="create-migration" description="Create a new empty migration">
+        <exec command="php ${project.basedir}/app/console dbal:get-version last --schemasPath=${project.scripts}/doctrine/schemas ${test}" outputProperty="lastVersion" />
+        <if>
+            <equals arg1="" arg2="${lastVersion}" />
+            <then>
+                <echo msg="Last version cannot be detected. Install application first." level="error" />
+            </then>
+            <else>
+                <tstamp>
+                    <format property="newDir" pattern="%Y%m%d%H%M%S"/>
+                </tstamp>
+                <mkdir dir="${project.scripts}/doctrine/schemas/${newDir}" />
+                <copy todir="${project.scripts}/doctrine/schemas/${newDir}" >
+                    <fileset dir="${project.scripts}/doctrine/schemas/${lastVersion}">
+                        <include name="*.yml" />
+                    </fileset>
+                </copy>
+                <echo msg="New empty migration is available to scripts/doctrine/schemas/${newDir} directory." />
+            </else>
+        </if>
+    </target>
+
+    <target name="patch" description="Patch database. Options : version, patch.">
+        <if>
+            <not><equals arg1="" arg2="${version}" /></not>
+            <then>
+                <echo msg="Run all patches for version ${version}" />
+                <exec command="php ${project.basedir}/app/console orm:patch ${project.scripts}/doctrine/patches/ --db-version=${version} ${test}" passthru="true" />
+            </then>
+            <elseif><not><equals arg1="" arg2="${patch}" /></not>
+                <then>
+                    <echo msg="Run patch ${patch}" />
+                    <exec command="php ${project.basedir}/app/console orm:patch ${project.scripts}/doctrine/patches/ --class-name='${patch}' ${test}" passthru="true" />
+                </then>
+            </elseif>
+            <else>
+                <fail message="Argument 'version' or 'patch' is required in order to execute this target (patch) correctly." />
+            </else>
+        </if>
+    </target>
+
+    <target name="check-config" description="Check congig">
+        <exec command="php scripts/misc/config_check.php"
+              logoutput="true" />
+    </target>
+
+    <target name="lint">
+        <phingcall target="phplint" />
+        <phingcall target="xmllint" />
+        <phingcall target="jslint" />
+    </target>
+
+    <target name="phplint" description="Check PHP syntax">
+        <phplint haltonfailure="true">
+            <fileset dir="${project.basedir}">
+                <patternset refid="MyPhpFiles" />
+            </fileset>
+        </phplint>
+    </target>
+    
+    <target name="xmllint" description="Check PHP syntax">
+        <xmllint haltonfailure="true">
+            <fileset dir="${project.basedir}">
+                <patternset refid="MyXmlFiles" />
+            </fileset>
+        </xmllint>
+    </target>
+    
+    <!--NB: the Javascript lint program (http://www.javascriptlint.com/) must be in the system path! -->
+    <target name="jslint" description="Check PHP syntax">
+        <jsllint conffile="${project.basedir}/config/jsllint.conf" haltonfailure="true" showwarnings="true">
+            <fileset dir="${project.basedir}">
+                <patternset refid="MyJsFiles" />
+            </fileset>
+        </jsllint>
+    </target>
+
+    <target name="metrics" description="Generate a nice bubble chart from project metrics">
+        <copy todir="${project.build}/bubbles" overwrite="true">
+            <fileset dir="${project.basedir}/scripts/misc/bubbles">
+                <include name="**/*" />
+            </fileset>
+        </copy>
+        <exec command="php scripts/misc/generate_metrics_image.php
+                            ${project.build}/bubbles/index.html
+                            ${project.build}/pdepend/metrics.jpg
+                            src,app"
+              logoutput="true" />
+    </target>
+
+    <target name="phploc" description="Measures and logs the size of the project using PHPLOC">
+        <exec command="${project.vendor}/bin/phploc${win-suffix}
+                              --log-csv ${project.log}/phploc.csv
+                              --exclude vendor
+                              --exclude scripts
+                              ${project.basedir}"
+              logoutput="true" />
+    </target>
+
+    <target name="phpcs-ci" description="Find coding standard violations using PHP_CodeSniffer">
+       <exec command="${project.vendor}/bin/phpcs${win-suffix}
+                              --standard=${project.config}/phpcs.xml
+                              --ignore=vendor,scripts,web
+                              --extensions=php
+                              --report=checkstyle
+                              --report-file=${project.log}/checkstyle.xml
+                              ${project.basedir}"
+              logoutput="true" />
+    </target>
+    
+    <target name="phpcs" description="Find coding standard violations using PHP_CodeSniffer">
+       <exec command="${project.vendor}/bin/phpcs${win-suffix}
+                              --standard=${project.config}/phpcs.xml
+                              --ignore=vendor,scripts,web
+                              --extensions=php
+                              ${project.basedir}"
+              logoutput="true" />
+    </target>
+
+    <target name="phpcpd" description="Find duplicate code using PHPCPD">
+        <exec command="${project.vendor}/bin/phpcpd${win-suffix}
+                              --log-pmd ${project.log}/pmdcpd.csv
+                              --exclude vendor --exclude scripts --exclude src/Entities
+                              ${project.basedir}"
+              logoutput="true" />
+    </target>
+
+    <target name="pdepend" description="Calculate software metrics using PHP_Depend">
+        <exec command="${project.vendor}/bin/pdepend${win-suffix}
+                              --jdepend-xml=${project.log}/jdepend.xml
+                              --overview-pyramid=${project.build}/pdepend/overview-pyramid.svg
+                              --ignore=vendor,scripts
+                              ${project.basedir}"
+              logoutput="true" />
+    </target>
+
+    <target name="phpmd" description="Perform project mess detection using PHPMD.">
+       <exec command="${project.vendor}/bin/phpmd${win-suffix}
+                              ${project.basedir}/src
+                              xml
+                              ${project.config}/phpmd.xml
+                              --reportfile ${project.log}/pmd.xml"
+              logoutput="true" />        
+    </target>
+    
+    <target name="phpunit" description="Run unit tests with PHPUnit">
+        <echo msg="Install test database" />
+        <property name="test" value="--test" override="true"/>
+        <property name="includePatches" value="0" override="true"/>
+        <property name="includeFixtures" value="1" override="true"/>
+        <phingcall target="install" />
+
+        <echo msg="" />
+        <if>
+            <not><equals arg1="" arg2="${group}" /></not>
+            <then>
+                <property name="groupOption" value=" --group=${group}" />
+                <echo msg="Run group '${group}'" />
+            </then>
+            <else>
+                <property name="groupOption" value="" />
+                <echo msg="Run all tests suite" />
+            </else>
+        </if>
+        <echo msg="" />
+        
+        <exec command="${project.vendor}/bin/phpunit${win-suffix}
+                              -c ${project.config}/phpunit.xml
+                              ${groupOption}"
+              logoutput="true" />
+    </target>
+
+    <target name="phpcb" description="Aggregate tool output with PHP_CodeBrowser">
+        <exec command="${project.basedir}/vendor/bin/phpcb${win-suffix}
+                              --log ${project.log}
+                              --source ${project.basedir}/src
+                              --output ${project.build}/code-browser"
+              logoutput="true" />
+    </target>
+
+    <target name="warmup" description="Resets and warms up the cache">
+        <delete dir="${project.build}" quiet="true" />
+        <exec command="php ${project.basedir}/app/console app:warmup" passthru="true" />
+    </target>
+    
+    <target name="demo-cleanup" description="Removes files related to demo">
+        <delete file="${project.basedir}/src/Project/Controller/DemoController.php" quiet="true" />
+        <delete file="${project.basedir}/src/Entities/Pipo.php" quiet="true" />
+        <delete file="${project.basedir}/src/Repositories/Pipo.php" quiet="true" />
+        <delete file="${project.basedir}/scripts/doctrine/schemas/20140101000000/Entities.Pipo.dcm.yml" quiet="true" />
+        <delete file="${project.basedir}/scripts/doctrine/schemas/current/Entities.Pipo.dcm.yml" quiet="true" />
+        <delete dir="${project.basedir}/views/back/demo" quiet="true" />
+    </target>
+</project>
