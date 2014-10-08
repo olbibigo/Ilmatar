@@ -2,13 +2,11 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Silex\Provider\SecurityServiceProvider;
-use Symfony\Component\Security\Core\Authorization\AccessDecisionManager;
 use Knp\Menu\Silex\KnpMenuServiceProvider;
 use Silex\Provider\RememberMeServiceProvider;
 use Ilmatar\AuthenticationSuccessHandler;
 use Ilmatar\AuthenticationFailureHandler;
 use Ilmatar\LogoutSuccessHandler;
-use Ilmatar\UserChecker;
 use Ilmatar\HelperFactory;
 
 $configFiles = [

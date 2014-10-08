@@ -43,7 +43,7 @@ $app->error(
                 'front/error.twig',
                 [
                     'code'    => $code,
-                    'message' => $e->getMessage()
+                    'message' => $message
                 ]
             )
         );

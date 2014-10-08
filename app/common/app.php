@@ -16,6 +16,7 @@ use Symfony\Component\Translation\Loader\JsonFileLoader;
 use Ilmatar\HelperFactory;
 use Ilmatar\Doctrine\Listeners\AuditListener;
 use Doctrine\Common\Cache\ArrayCache;
+use Symfony\Component\Translation\Translator;
 
 $app = new Application($app);
 
@@ -159,7 +160,7 @@ $app['locale.js']   = $lang['code.js'];
 $app['locale_fallback'] = [$app['locale']];
 
 if ('en' != $app['locale']) {
-    $app['translator'] = $app->share($app->extend('translator', function ($translator, $app) {
+    $app['translator'] = $app->share($app->extend('translator', function (Translator $translator, Application $app) {
         $translator->addLoader('json', new JsonFileLoader());
         $translator->addResource(
             'json',

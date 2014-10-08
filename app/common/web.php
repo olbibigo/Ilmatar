@@ -1,6 +1,6 @@
 <?php
+use Ilmatar\Application;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\UrlGeneratorServiceProvider;
@@ -10,7 +10,6 @@ use Symfony\Component\Translation\Loader\JsonFileLoader;
 use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\FormServiceProvider;
 use Whoops\Provider\Silex\WhoopsServiceProvider;
-use Silex\Provider\WebProfilerServiceProvider;
 use Silex\Provider\HttpCacheServiceProvider;
 use Ilmatar\Provider\NotificationServiceProvider;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -23,19 +22,17 @@ use Symfony\Bridge\Doctrine\Form;
 use Symfony\Bridge\Doctrine\Form\DoctrineOrmExtension;
 use Ilmatar\ManagerRegistry;
 use Carbon\Carbon;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Ilmatar\HelperFactory;
 use Monolog\Handler\FirePHPHandler;
 use Ilmatar\Twig\Extensions\ImgBase64Extension;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntityValidator;
-use Symfony\Bridge\Doctrine\Validator\DoctrineInitializer;
+use Symfony\Component\Translation\Translator;
 
 /*
  * Firephp Console log
  * Brwoser plugin is required : https://addons.mozilla.org/fr/firefox/addon/firephp/
  */
 if ($app['debug']) {
-    $app['monolog.console'] = $app->share(function ($app) use ($channel) {
+    $app['monolog.console'] = $app->share(function (Application $app) {
         $log = new $app['monolog.logger.class']('console');
         $log->pushHandler(new FirePHPHandler());
         return $log;
@@ -159,7 +156,7 @@ $app->register(
     ]
 );
 
-$app['twig'] = $app->share($app->extend('twig', function ($twig, $app) {
+$app['twig'] = $app->share($app->extend('twig', function (\Twig_Environment $twig, Application $app) {
     $twig->addGlobal("appName", $app['app.name'] . ' r' . $app['app.version']);
     if (isset($app['security']) && !is_null($app['security']->getToken())) {       
         $user = $app['security']->getToken()->getUser();
@@ -233,7 +230,7 @@ if ($app['session']->has('locale')) {
     $app['locale.js']   = $app['session']->get('locale.js');
 }
 if ('en' != $app['locale']) {
-    $app['translator'] = $app->share($app->extend('translator', function ($translator, $app) {
+    $app['translator'] = $app->share($app->extend('translator', function (Translator $translator, Application $app) {
         $translator->addLoader('json', new JsonFileLoader());
         $translator->addResource(
             'json',

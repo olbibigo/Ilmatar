@@ -2,8 +2,6 @@
 // Config for doctrine console (vendor/bin/doctrine)
 
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
-use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager;
 
 $configFiles = array(
     'env.xml',

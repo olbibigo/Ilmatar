@@ -9,7 +9,7 @@ if (isset($_SERVER['argv'])) {
     }
 }
 
-if (isset($loadTestConfig) && $loadTestConfig == true) {
+if (isset($loadTestConfig) && (true === $loadTestConfig)) {
     $app['dbOptions'] = [
         'driver'   => $app['dbDriver-test'],
         'user'     => $app['dbUser-test'],
