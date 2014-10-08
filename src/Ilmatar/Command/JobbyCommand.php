@@ -1,13 +1,9 @@
 <?php
 namespace Ilmatar\Command;
 
-use Ilmatar\Application;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Ilmatar\BaseCommand;
-use Jobby\Jobby;
 use Jobby\BackgroundJob;
 use Jobby\Helper;
 

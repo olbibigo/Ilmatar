@@ -2,7 +2,6 @@
 namespace Ilmatar\Command;
 
 use Ilmatar\Application;
-use Entities\Version;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

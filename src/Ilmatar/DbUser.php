@@ -2,8 +2,6 @@
 
 namespace Ilmatar;
 
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Validator\ExecutionContextInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Ilmatar\Exception\TranslatedException;

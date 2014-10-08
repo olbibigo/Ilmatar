@@ -34,7 +34,7 @@ class KpiValue extends JqGrid
     protected function getDailyData($kpiCode)
     {
         return array_map(
-            function ($value) {
+            function (\Entities\KpiValue $value) {
                 return $value->getDataToDisplay();
             },
             $this->findByKpi(

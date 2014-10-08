@@ -3,10 +3,6 @@ namespace Project\Controller;
 
 use Ilmatar\Application;
 use Ilmatar\BaseFrontController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
-use Ilmatar\HelperFactory;
 
 class FrontController extends BaseFrontController
 {

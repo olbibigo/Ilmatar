@@ -2,7 +2,6 @@
 namespace Ilmatar\Helper;
 
 use Ilmatar\BaseHelper;
-use Symfony\Component\Security\Core\Util\SecureRandom;
 use Symfony\Component\Security\Core\Util\StringUtils;
 
 /**

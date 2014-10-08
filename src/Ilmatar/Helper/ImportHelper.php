@@ -2,7 +2,6 @@
 namespace Ilmatar\Helper;
 
 use Ilmatar\BaseHelper;
-use Ilmatar\TagManager;
 use Ilmatar\JqGrid;
 use Ilmatar\Exception\TranslatedException;
 

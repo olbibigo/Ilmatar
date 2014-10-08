@@ -4,7 +4,6 @@ namespace Ilmatar;
 use Ilmatar\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Ilmatar\HelperFactory;
 
 /*
  * Declare here routes shared by all vhost

@@ -3,11 +3,9 @@ namespace Ilmatar;
 
 use Ilmatar\Application;
 use Ilmatar\HelperFactory;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\Translator;
-use Symfony\Component\Routing\Generator\UrlGenerator;
 use Ilmatar\Helper\ArrayHelper;
 use Ilmatar\Exception\TranslatedException;
 
@@ -108,8 +106,6 @@ abstract class BaseBackController extends BaseController
         $twigModel = 'back/grid.twig',
         array $options = []
     ) {
-        $repository = $app['orm.em']->getRepository($entityName);
-
         $content = $app['twig']->render(
             $twigModel,
             array_merge(

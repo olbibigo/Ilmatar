@@ -542,7 +542,7 @@ class DemoController extends BaseBackController
             $isSearch,
             $filters,
             array(//Unformats date
-                FileSystemHelper::FILE_ATIME => function ($date) use ($app) {
+                FileSystemHelper::FILE_ATIME => function ($date) {
                     switch (substr_count($date, ':')) {
                         case 0:
                             $date = trim($date) . ' 00:00:00';

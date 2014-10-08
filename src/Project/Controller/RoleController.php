@@ -3,11 +3,11 @@ namespace Project\Controller;
 
 use Ilmatar\Application;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Ilmatar\HelperFactory;
 use Ilmatar\JqGrid;
 use Project\Form\Role;
+use Entities\Functionality;
+use Entities\Kpi;
 
 class RoleController extends BaseBackController
 {
@@ -173,7 +173,6 @@ class RoleController extends BaseBackController
             if ($page > $totalPages) {
                 $page = $totalPages;
             }
-            $subRows = array_slice($out['rows'], $page * $pagesize - $pagesize, $pagesize);
 
             $out['page']    = $page;
             $out['total']   = $totalPages;
@@ -222,7 +221,7 @@ class RoleController extends BaseBackController
             ),
             $app
         );
-        $oper   = $request->get(JqGrid::JQGRID_KEY_OPER);
+
         if (JqGrid::ID_NEW_ENTITY == $roleId) {
             $role = new \Entities\Role();
         } else {//EDIT or DELETE
@@ -245,14 +244,14 @@ class RoleController extends BaseBackController
         }
 
         $functionalityCodes = array_map(
-            function ($functionality) {
+            function (Functionality $functionality) {
                 return $functionality->getCode();
             },
             $app['orm.em']->getRepository('\\Entities\\Functionality')->findBy(array('is_editable' => true))
         );
         
         $kpiList = array_map(
-            function ($kpi) {
+            function (Kpi $kpi) {
                 return [
                     'label'       => $kpi->getCode(),
                     'id'          => $kpi->getId(),

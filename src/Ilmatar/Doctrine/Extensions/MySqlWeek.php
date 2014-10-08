@@ -22,7 +22,7 @@ class MySqlWeek extends FunctionNode
     public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
     {
         $sql = "WEEK(" . $sqlWalker->walkArithmeticPrimary($this->date);
-        if ($this->mode != null) {
+        if (!is_null($this->mode)) {
             $sql .= ", " . $sqlWalker->walkLiteral($this->mode);
         }
         $sql .= ")";

@@ -8,8 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Ilmatar\Helper;
 use Zend\Text\Figlet\Figlet;
-use Symfony\Component\Finder\Finder;
-use Ilmatar\Helper\FileSystemHelper;
 
 class PublicBackController extends BaseBackController
 {

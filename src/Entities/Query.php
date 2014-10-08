@@ -10,7 +10,6 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Choice;
-use Symfony\Component\Validator\Constraints\Range;
 use Symfony\Component\Validator\Constraints\Callback;
 
 /**

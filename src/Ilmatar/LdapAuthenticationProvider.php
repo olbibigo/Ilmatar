@@ -13,13 +13,11 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 class LdapAuthenticationProvider implements AuthenticationProviderInterface
 {
     private $userProvider;
-    private $providerKey;
     private $ldap;
  
     public function __construct($userProvider, $providerKey, $ldap)
     {
         $this->userProvider = $userProvider;
-        $this->providerKey  = $providerKey;
         $this->ldap         = $ldap;
     }
  

@@ -46,9 +46,9 @@ class PatchCommand extends BaseCommand
             throw new \RuntimeException("Argument 'directory' is required in order to execute this command correctly.");
         }
 
-        if (($version = $input->getOption('db-version')) !== null) {
-
-            $loadedDirectory = $dir . '/Version' . $version;
+        $version = $input->getOption('db-version');
+        if (!is_null($version)) {
+            $loadedDirectory = sprintf('%s/Version%s', $dir, $version);
             if (! file_exists($loadedDirectory)) {
                 $output->write(sprintf('No patch for version %s', $version), true);
             } else {
@@ -61,9 +61,7 @@ class PatchCommand extends BaseCommand
                 $executor = new ORMExecutor(Application::getInstance()['orm.em'], $purger);
                 $executor->execute($loader->getFixtures(), true);
             }
-
         } elseif (($className = $input->getOption('class-name')) !== null) {
-
             $loadedClass = $dir . '/' . str_replace('\\', '/', $className) . '.php';
             if (! file_exists($loadedClass)) {
                 throw new \RuntimeException(sprintf("Class path %s does not exist.", $className));

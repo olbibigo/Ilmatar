@@ -1,14 +1,12 @@
 <?php
 namespace Repositories;
 
-use Doctrine\ORM\NoResultException;
 use Ilmatar\DbUserProvider;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Routing\Generator\UrlGenerator;
 use Carbon\Carbon;
 use Ilmatar\JqGrid;
 use Ilmatar\HelperFactory;
-use Symfony\Component\Intl\Intl;
 
 /**
  * User
@@ -33,8 +31,6 @@ class User extends DbUserProvider
     {
         $columns = parent::getJqGridColModels($translator, $urlGenerator, $options);
         //Inserts a new column
-        $roles = $this->getEntityManager()->getRepository('\\Entities\\Role')->findAll();
-
         $roleModel = array(
             array(
                 "name"       => 'role',
@@ -107,7 +103,6 @@ class User extends DbUserProvider
     {
         //Manages user settings
         $settingConfig      = \Entities\UserSetting::getDefaultSettings(true);
-        $storedUserSettings = $entity->getSettings();
         $em                 = $this->getEntityManager();
         $repo               = $em->getRepository('\\Entities\\UserSetting');
         foreach ($settingConfig as $code => $config) {

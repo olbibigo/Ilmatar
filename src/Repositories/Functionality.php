@@ -62,7 +62,7 @@ class Functionality extends JqGrid
 
         if (!$permissions->isEmpty()) {
             $columns['read_roles'] = array_map(
-                function ($permission) use ($options, $translator) {
+                function (\Entities\Permission $permission) use ($translator, $options) {
                     if ($permission->getType() == \Entities\Permission::ACCESS_READ) {
                         if (isset($options['has_role_access']) && $options['has_role_access']) {
                             return sprintf(

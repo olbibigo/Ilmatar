@@ -3,7 +3,6 @@ namespace Ilmatar\Provider;
 
 use Silex\Application;
 use Silex\ServiceProviderInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 class MenuServiceProvider implements ServiceProviderInterface
 {

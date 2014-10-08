@@ -50,7 +50,6 @@ class Query extends JqGrid
                 continue;
             }
             if ('mail_repeats' == $column['name']) {
-                $repeats = \Entities\Query::getAllRepeats();
                 $columns[$idx]['searchoptions'] = array(
                     "sopt"  => array(self::JQGRID_OPERATOR_EQUAL),
                     "value" => self::buildSortValue(\Entities\Query::getAllRepeats(), $translator)

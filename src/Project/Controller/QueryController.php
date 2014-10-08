@@ -4,7 +4,6 @@ namespace Project\Controller;
 use Ilmatar\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Ilmatar\HelperFactory;
 use Ilmatar\JqGrid;
 use Project\Form\Query;
 
@@ -188,7 +187,7 @@ class QueryController extends BaseBackController
 
         if ($queryForm->isSubmitted()) {
             if ($queryForm->isValid()) {
-                $response = $this->processChange(
+                $this->processChange(
                     $query,
                     $request->request->all(),
                     null,

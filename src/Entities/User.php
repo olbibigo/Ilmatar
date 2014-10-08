@@ -8,7 +8,6 @@ use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Email;
 use Ilmatar\Exception\TranslatedException;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Ilmatar\JqGrid;
 use Ilmatar\DbUser;
 
 /**

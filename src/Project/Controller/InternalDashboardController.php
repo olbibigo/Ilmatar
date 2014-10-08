@@ -3,9 +3,6 @@ namespace Project\Controller;
 
 use Ilmatar\Application;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Ilmatar\HelperFactory;
-use Ilmatar\TagManager;
 
 /*
  * Should declare here only internal routes

@@ -46,7 +46,7 @@ class Role extends JqGrid
         $users   = $entity->getUsers();
         if (!$users->isEmpty()) {
             $columns['users'] = array_map(
-                function ($user) use ($options, $translator) {
+                function (\Entities\User $user) use ($options, $translator) {
                     if (isset($options['has_user_access']) && $options['has_user_access']) {
                         return sprintf(
                             '<a title="%s" href="%s">%s</a>',

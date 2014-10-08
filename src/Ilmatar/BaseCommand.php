@@ -31,7 +31,7 @@ abstract class BaseCommand extends \Knp\Command\Command
             $app['monolog.console'] = $app->share(
                 $app->extend(
                     'monolog.console',
-                    function ($monolog, $app) use ($output) {
+                    function ($monolog, Application $app) use ($output) {
                         $monolog->pushHandler(new ConsoleHandler($output));
                         return $monolog;
                     }

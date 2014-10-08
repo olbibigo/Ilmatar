@@ -5,8 +5,6 @@ use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureH
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Psr\Log\LoggerInterface;
-use Symfony\Component\Security\Http\HttpUtils;
 
 class AuthenticationFailureHandler extends DefaultAuthenticationFailureHandler
 {

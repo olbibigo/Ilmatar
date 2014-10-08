@@ -3,7 +3,6 @@ namespace Ilmatar\Helper;
 
 use Ilmatar\BaseHelper;
 use Knp\Snappy\Pdf;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 
 /**

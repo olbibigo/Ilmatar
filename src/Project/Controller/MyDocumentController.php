@@ -8,8 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Ilmatar\HelperFactory;
 use Ilmatar\JqGrid;
 use Symfony\Component\Validator\Constraints as Assert;
-use Ilmatar\Helper\FileSystemHelper;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Entities\Document;
 
 class MyDocumentController extends BaseBackController

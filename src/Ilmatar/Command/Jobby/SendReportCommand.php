@@ -6,7 +6,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Carbon\Carbon;
 use Entities\Query;
-use Ilmatar\Helper\ArrayHelper;
 use Ilmatar\HelperFactory;
 
 class SendReportCommand extends BaseJobbyCommand

@@ -7,8 +7,6 @@ use ExcelAnt\Adapter\PhpExcel\Sheet\Sheet;
 use ExcelAnt\Adapter\PhpExcel\Writer\Writer;
 use ExcelAnt\Table\Table;
 use ExcelAnt\Coordinate\Coordinate;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use ExcelAnt\Adapter\PhpExcel\Writer\WriterFactory;
 use ExcelAnt\Adapter\PhpExcel\Writer\PhpExcelWriter\Excel5;
 use ExcelAnt\Collections\StyleCollection;
@@ -16,7 +14,6 @@ use ExcelAnt\Style\Fill;
 use ExcelAnt\Style\Font;
 use ExcelAnt\Style\Borders;
 use ExcelAnt\Style\Border;
-use ExcelAnt\Style\Format;
 use ExcelAnt\Style\Alignment;
 use Symfony\Component\Translation\Translator;
 

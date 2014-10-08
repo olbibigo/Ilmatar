@@ -53,7 +53,7 @@ class WarmUpCommand extends BaseCommand
                 )
             )
         );
-        $app['twig'] = $app->share($app->extend('twig', function ($twig, $app) {
+        $app['twig'] = $app->share($app->extend('twig', function (\Twig_Environment $twig, Application $app) {
             $twig->addExtension(new ImgBase64Extension($app));
             return $twig;
         }));

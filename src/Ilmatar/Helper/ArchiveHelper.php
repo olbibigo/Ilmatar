@@ -25,7 +25,7 @@ class ArchiveHelper extends BaseHelper
         $zip = new \ZipArchive();
         $zippath = $this->mandatories['app.var'] . DIRECTORY_SEPARATOR . uniqid();
 
-        $code = $zip->open($zippath, \ZipArchive::CREATE);
+        $zip->open($zippath, \ZipArchive::CREATE);
         foreach ($files as $name => $path) {
             if (file_exists($path)) {
                 $zip->addFile($path, $name);
