@@ -3,7 +3,6 @@ namespace Project\Controller;
 
 use Ilmatar\Application;
 use Symfony\Component\HttpFoundation\Request;
-use Ilmatar\JqGrid;
 
 class AuditController extends BaseBackController
 {

@@ -3,7 +3,6 @@ namespace Project\Controller;
 
 use Ilmatar\Application;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Ilmatar\JqGrid;
 use Project\Form\Query;
 
