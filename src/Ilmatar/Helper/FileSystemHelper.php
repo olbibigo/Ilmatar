@@ -371,7 +371,7 @@ class FileSystemHelper extends BaseHelper
                 throw new \Exception(sprintf("Unknown method %s() in %s()", $method, __FUNCTION__));
             }
             //Is file given as a path
-            if (@file_exists($args[0])) {
+            if (file_exists($args[0])) {
                 if ($f = fopen($args[0], 'rb')) {
                     $header = fread($f, count($fileSignatures[$expectedType]));
                     fclose($f);

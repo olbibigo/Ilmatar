@@ -284,6 +284,8 @@ class MailTemplate extends BaseEntity
     /*
      * Checks just insert into DB
      * Messages are translated inside catch{} (See class Project\Controller\MailController)
+     *
+     * @ORM\PrePersist
      */
     public function assertValidMailTemplate()
     {

@@ -173,7 +173,9 @@ class Pipo extends BaseEntity implements AuditableInterface
     {
         return $this->functionality;
     }
-
+    /**
+     * @ORM\PrePersist
+     */
     public function assertValidPipo()
     {
         if (($this->mycheck != 0)

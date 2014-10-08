@@ -134,6 +134,9 @@ class Permission extends BaseEntity
         //if this perm exists, there is at least the R right
         return true;
     }
+    /**
+     * @ORM\PrePersist
+     */
     public function assertValidPermission()
     {
         if (!in_array($this->type, array_keys(self::getAllTypes()))) {

@@ -361,7 +361,9 @@ class Role extends BaseEntity
     {
         return $this->deleted_by;
     }
-
+    /**
+     * @ORM\PrePersist
+     */
     public function assertValidRole()
     {
         if (empty($this->code)) {

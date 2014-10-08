@@ -574,6 +574,8 @@ class User extends DbUser
     /*
      * Checks just insert into DB
      * Messages are translated inside catch{} (See class Project\Controller\UserController)
+    *
+     * @ORM\PrePersist
      */
     public function assertValidUser()
     {

@@ -270,7 +270,9 @@ class Parameter extends BaseEntity
     {
         return $this->updated_by;
     }
-    
+    /**
+     * @ORM\PrePersist
+     */    
     public function assertValidParameter()
     {
         if (empty($this->code)) {
