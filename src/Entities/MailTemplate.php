@@ -281,11 +281,8 @@ class MailTemplate extends BaseEntity
     {
         return $this->updated_by;
     }
-    /*
-     * Checks just insert into DB
-     * Messages are translated inside catch{} (See class Project\Controller\MailController)
-     */ 
-    /*
+
+    /**
      * @ORM\PrePersist
      */
     public function assertValidMailTemplate()
